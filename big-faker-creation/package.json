@@ -1,0 +1,19 @@
+{
+  "name": "fakersample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "faker": "^5.5.3",
+    "fs-extra": "^10.0.0",
+    "graceful-fs": "^4.2.9",
+    "proper-lockfile": "^4.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
