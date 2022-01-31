@@ -2,7 +2,8 @@ const faker = require('faker');
 
 function getFakeOrder () {
 
-  const entireName = faker.name.findName();
+  const firstName = faker.name.firstName();
+  const lastName = faker.name.lastName();
   const email = faker.internet.email();
   const streetAddress = faker.address.streetAddress();
   const zipCode = faker.address.zipCode();
@@ -10,14 +11,21 @@ function getFakeOrder () {
   const country = faker.address.country();
   const phone = faker.phone.phoneNumber()
   const userName = faker.internet.userName();
-  const pastDate = faker.date.past();
+  const orderDate = faker.date.past();
+  const orderId = faker.datatype.number();
+  const orderQuantity = faker.datatype.number();
   const product = faker.commerce.productName();
   const productType = faker.commerce.product();
   const productColor = faker.commerce.color();
   const productDescr = faker.commerce.productDescription();
-  const price = faker.commerce.price();
+  const orderPrice = faker.commerce.price();
 
-  return `${entireName}; ${email}; ${streetAddress}; ${zipCode}; ${city}; ${country}; ${phone}; ${userName}; ${pastDate}; ${product}; ${productType}; ${productColor}; ${productDescr}; ${price}\n`;
+  return `${firstName}; ${lastName}; ${email};
+          ${streetAddress}; ${zipCode}; ${city}; ${country}; ${phone};
+          ${userName};
+          ${orderDate}; ${orderId}; ${orderQuantity};
+          ${product}; ${productType}; ${productColor}; ${productDescr};
+          ${orderPrice}\n`;
 
 }
 
