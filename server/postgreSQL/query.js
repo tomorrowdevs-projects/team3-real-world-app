@@ -9,10 +9,12 @@ async function queryAll() {
             product: true,
         },
     });
-    console.dir(allOrders, { depth: null })
+    console.dir(allOrders, { depth: null });
+
+    return allOrders
 };
 
-/*
+
 queryAll()
   .catch((e) => {
     throw e
@@ -20,7 +22,7 @@ queryAll()
   .finally(async () => {
     await prisma.$disconnect()
   })
-*/
+
 
 module.exports = {
     queryAll

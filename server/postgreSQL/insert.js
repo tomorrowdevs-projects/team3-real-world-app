@@ -53,3 +53,7 @@ insert()
     await prisma.$disconnect()
   })
 
+
+  module.exports = {
+    insert
+  }
