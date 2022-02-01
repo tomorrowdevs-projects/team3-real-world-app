@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+<div class="container">
+  <div class="jumbotron centered">
+    <i class="fas fa-key fa-6x"></i>
+    <hr>
+
+    <p class="secret-text">Upload your csv file</p>
+    <hr>
+    <form action="/submit" method="POST">
+
+      <div class="form-group">
+        <input type="file" class="form-control text-center" name="csv-upload" placeholder="Upload your csv file">
+      </div>
+      <button type="submit" class="btn btn-dark">Upload</button>
+    </form>
+
+
+  </div>
+</div>
+<%- include('partials/footer') %>

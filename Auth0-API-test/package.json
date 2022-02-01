@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "express": "^4.17.2",
+    "express-jwt": "^6.1.0",
+    "jwks-rsa": "^2.0.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "start": "nodemon app.js"
+  }
+}
