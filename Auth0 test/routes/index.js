@@ -20,7 +20,7 @@ router.get("/secrets", requiresAuth(), async (req, res) => {
     const { token_type, access_token } = req.oidc.accessToken
 
     try {
-        const apiResponse = await axios.get("http://localhost:5000/private", 
+        const apiResponse = await axios.get("http://localhost:5000/queryAll", 
         {
             headers:{
                 authorization: `${token_type} ${access_token}`
@@ -37,10 +37,25 @@ router.get("/secrets", requiresAuth(), async (req, res) => {
     })
 })
 
-router.get("/submit", requiresAuth(), (req, res) => {
+router.get("/submit", requiresAuth(), async (req, res) => {
+    let data = {}
+    
+    const { token_type, access_token } = req.oidc.accessToken
+
+    try {
+        const apiResponse = await axios.get("http://localhost:5000/insert", 
+        {
+            headers:{
+                authorization: `${token_type} ${access_token}`
+            }
+        })
+        data = apiResponse.data
+    } catch (e) {}
+
     res.render("submit", {
         isAuthenticated: req.oidc.isAuthenticated(),
-        user: req.oidc.user
+        user: req.oidc.user,
+        data: data
     })
 })
 
