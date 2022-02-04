@@ -4,6 +4,29 @@ var jwt = require('express-jwt');
 var jwks = require('jwks-rsa');
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
+const csv = require('@fast-csv/parse');
+
+async function readCSVwriteData(){
+    let counter = 0; 
+
+// let header = [];
+// let data = [];
+let csvStream = await csv.parseFile(".\\csv\\fake_data_stream.csv", { headers: true, delimiter: ";" })
+    .on("data", function(record){
+        csvStream.pause();
+        if (counter < 1000) {
+            insertData(record)
+            ++counter;
+        }
+
+        csvStream.resume();
+
+    }).on("end", function(){
+        console.log("Job is done!");
+    }).on("error", function(err){
+        console.log(err);
+    });
+}
 
 
 async function queryAll() {
@@ -13,42 +36,39 @@ async function queryAll() {
             product: true,
         },
     });
-    // console.dir(allOrders, {
-    //     depth: null
-    // });
     return allOrders
 }
 
-async function insertData() {
+async function insertData(record) {
     await prisma.order.create({
         data: {
-            orderDate: new Date('2022-01-31T22:53:30.333'),
-            externalId: '5',
-            quantity: 99,
-            price: 5.99,
-            user: {
-                create: {
-                    firstname: 'Federico',
-                    lastname: 'Siddi',
-                    email: 'prova@email.it',
-                    address: 'via le mani dal naso',
-                    zip: 95125,
-                    city: 'Milano',
-                    country: 'Italy',
-                    phone: '+39 3291119995',
-                    username: 'team3'
-                },
+        orderDate: new Date('2022-01-31T22:53:30.333'),
+        externalId: record.orderId,
+        quantity: parseInt(record.orderQuantity),
+        price: parseFloat(record.orderPrice),
+        user: {
+            create: {
+                firstname: record.firstName,
+                lastname: record.lastName,
+                email: record.email,
+                address: record.address,
+                zip: parseInt(record.zipCode),
+                city: record.city,
+                country: record.country,
+                phone: record.phone,
+                username: record.userName
             },
-            product: {
-                create: {
-                    name: 'Nike Air',
-                    productType: 'shoes',
-                    color: 'orange',
-                    description: 'bests Nike shoes ever made'
-                },
+        },
+        product: {
+            create: {
+                name: record.productName,
+                productType: record.productType,
+                color: record.productColor,
+                description: record.productDescr
             },
-        }
-    })
+        },
+    }
+})
 }
 
 var jwtCheck = jwt({
@@ -83,13 +103,13 @@ app.get("/queryAll", jwtCheck, async (req, res) => {
 
 app.get("/insert", jwtCheck, (req, res) => {
     
-    res.json(insertData()
+    readCSVwriteData()
     .catch((e) => {
         throw e
     })
     .finally(async () => {
         await prisma.$disconnect()
-    }))
+    })
 })
 
 app.listen(5000)
