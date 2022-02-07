@@ -16,13 +16,13 @@ model User {
   updatedAt DateTime @updatedAt
   firstname String   @db.VarChar(50)
   lastname  String   @db.VarChar(50)
-  username  String?   @db.VarChar(20)
+  username  String?   @db.VarChar(50)
   email     String?   @db.VarChar(100)
   phone     String?   @db.VarChar(30)
   address   String?   @db.VarChar(255)
   zip       Int?
   city      String?   @db.VarChar(50)
-  country   String?   @db.VarChar(50)
+  country   String?   @db.VarChar(70)
   Order     Order[]
 }
 
@@ -31,7 +31,7 @@ model Product {
   name        String   @db.VarChar(150)
   productType        String   @db.VarChar(50)
   color       String   @db.VarChar(50)
-  description String?
+  description String?  
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   Order       Order[]

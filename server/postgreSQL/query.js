@@ -8,20 +8,18 @@ async function queryAll() {
             user: true,
             product: true,
         },
+    })
+    .catch((e) => {
+      throw e
+    })
+    .finally(async () => {
+      await prisma.$disconnect()
     });
     console.dir(allOrders, { depth: null });
 
     return allOrders
 };
 
-
-queryAll()
-  .catch((e) => {
-    throw e
-  })
-  .finally(async () => {
-    await prisma.$disconnect()
-  })
 
 
 module.exports = {

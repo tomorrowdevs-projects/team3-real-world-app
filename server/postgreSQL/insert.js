@@ -2,8 +2,6 @@ const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
 
-
-
 async function insert() {
     await prisma.order.create({
         data: {
@@ -34,26 +32,17 @@ async function insert() {
             },
         }
     })
-    
-    const allOrders = await prisma.order.findMany({
-        include: {
-            user: true,
-            product: true,
-        },
+    .catch((e) => {
+      throw e
+    })
+    .finally(async () => {
+      await prisma.$disconnect()
     });
-    console.dir(allOrders, { depth: null })
+    console.log('Order inserted successfully');
 }
 
 
-insert()
-  .catch((e) => {
-    throw e
-  })
-  .finally(async () => {
-    await prisma.$disconnect()
-  })
 
-
-  module.exports = {
-    insert
-  }
+module.exports = {
+insert
+}
