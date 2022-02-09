@@ -20,7 +20,7 @@ function getFakeOrder () {
   const productDescr = faker.commerce.productDescription();
   const orderPrice = faker.commerce.price();
 
-  return `${firstName}; ${lastName}; ${email}; ${streetAddress}; ${zipCode}; ${city}; ${country}; ${phone}; ${userName}; ${orderDate}; ${orderId}; ${orderQuantity}; ${product}; ${productType}; ${productColor}; ${productDescr}; ${orderPrice}\n`;
+  return `${firstName};${lastName};${email};${streetAddress};${zipCode};${city};${country};${phone};${userName};${orderDate};${orderId};${orderQuantity};${product};${productType};${productColor};${productDescr};${orderPrice}\n`;
 
 }
 

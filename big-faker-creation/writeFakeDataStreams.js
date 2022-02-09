@@ -7,7 +7,7 @@ const outputFile = `${__dirname}\\csv2upload\\${streamFile}`;
 
 function writeFakeDataStreams () {
   const myWriteStream = fs.createWriteStream(outputFile);
-  for (let i=0; i<=10; i++) {
+  for (let i=0; i<=150000; i++) {
       myWriteStream.write(getFakeOrder());
     }
 }

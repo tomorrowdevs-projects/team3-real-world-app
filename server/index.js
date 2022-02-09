@@ -20,12 +20,12 @@ app.get("/getAll", async (req, res) => {
 app.get("/insert", async (req, res) => {
   const insertOrder = await insert();
   res.status(200)
-  res.json("Order generated successfully")
+  res.send("Order generated successfully")
 })
 
 app.post("/upload", upload.single("file"), (req, res) => {
   const file = req.file
-  console.log("file caricato")
+  // loopCSV(file);
   res.send("file caricato")
 })
 
