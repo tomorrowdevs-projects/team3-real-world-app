@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "User" ALTER COLUMN "country" SET DATA TYPE VARCHAR(70);

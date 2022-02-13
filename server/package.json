@@ -11,12 +11,14 @@
   "license": "ISC",
   "devDependencies": {
     "dotenv": "^14.3.0",
-    "prisma": "^3.8.1"
+    "prisma": "^3.9.2"
   },
   "dependencies": {
-    "@prisma/client": "^3.8.1",
+    "@fast-csv/parse": "^4.3.6",
+    "@prisma/client": "^3.9.2",
     "cors": "^2.8.5",
     "express": "^4.17.2",
+    "jwks-rsa": "^2.0.5",
     "multer": "^1.4.4"
   }
 }

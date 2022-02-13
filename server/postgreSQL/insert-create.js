@@ -15,8 +15,8 @@ async function readCSVwriteData() { // function used to parse the csv file and w
 
     // let header = [];
     // let data = [];
-
-    let csvStream = await csv.parseFile("../../big-faker-creation/csv2upload/fake_data_stream.csv", {
+    // fake_data_stream
+    let csvStream = await csv.parseFile("../../big-faker-creation/csv2upload/myfake.csv", {
             headers: true,
             delimiter: ";"
         })
