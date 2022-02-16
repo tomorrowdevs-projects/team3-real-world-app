@@ -1,0 +1,21 @@
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.input {
+  margin-bottom: 10px;
+}
+
+.progress {
+  width: 20%;
+  padding: 1em;
+  margin-right: 0.5em;
+}
