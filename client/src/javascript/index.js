@@ -1,4 +1,6 @@
-import "../assets/styles/general.css";
+// import "../assets/styles/general.css";
+// import "../assets/styles/homepage.css";
+import "../assets/styles/index.css";
 
 const axios = require("axios");
 const input = document.querySelector("#input");
@@ -42,7 +44,9 @@ function uploadFile(start) {
     //Listen for the onuploadprogress event
     onUploadProgress: function (progressEvent) {
       if (file.size < chunkSize + 1) {
-        var percent = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+        var percent = Math.round(
+          (progressEvent.loaded / progressEvent.total) * 100
+        );
       } else {
         var percent = Math.round((uploadedChunck / file.size) * 100);
       }
@@ -52,7 +56,11 @@ function uploadFile(start) {
   };
 
   axios
-    .post(`http://localhost:3000/upload/${file.name}/${chunkNumber}`, formData, config)
+    .post(
+      `http://localhost:3000/upload/${file.name}/${chunkNumber}`,
+      formData,
+      config
+    )
     .then((response) => {
       if (nextChunk < file.size) {
         uploadFile(nextChunk);
