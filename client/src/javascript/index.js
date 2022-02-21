@@ -3,6 +3,7 @@ import "../assets/styles/general.css";
 const axios = require("axios");
 const input = document.querySelector("#input");
 const fileInfo = document.querySelector("#file-info");
+const loading = document.querySelector("#loading");
 
 //break into 10 MB chunks
 const chunkSize = 1024 * 1024 * 10;
@@ -59,6 +60,8 @@ function uploadFile(start) {
       } else {
         console.log("terminato");
         console.log(response);
+        // Calls the API to write the data in the DB
+        writeData(response.data.chunkNumber);
       }
     })
     .catch((error) => {
@@ -70,3 +73,17 @@ const cancelUploadBtn = document.querySelector("#cancelUploadBtn");
 cancelUploadBtn.addEventListener("click", () => {
   source.cancel();
 });
+
+function writeData(chunkNumber) {
+  loading.style.display = "block";
+
+  axios
+    .get(`http://localhost:3000/data/${file.name}/${chunkNumber}`)
+    .then((response) => {
+      console.log(response);
+      loading.innerHTML = "Ended";
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
