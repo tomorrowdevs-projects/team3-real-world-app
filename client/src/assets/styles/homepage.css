@@ -26,7 +26,7 @@ h1 {
 }
 .container-app {
     background-color: var(--background-color);
-    /* background-image: url(../img/hero.png); */
+    background-image: url("../img/hero.png");
     background-position: center center;
     background-repeat: no-repeat;
     width: 100%;
