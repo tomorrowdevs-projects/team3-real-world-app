@@ -1,9 +1,10 @@
-const { queryAll } = require("./postgreSQL/query");
-const { insert } = require("./postgreSQL/insert-create");
+// const { queryAll } = require("./postgreSQL/query");
+// const { insert } = require("./postgreSQL/insert-create");
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const fs = require("fs");
+const { join } = require("path");
 
 const uploadPath = path.join(__dirname, "csv/");
 
@@ -38,6 +39,11 @@ const port = 3000;
 app.use(express.json());
 app.use(cors());
 
+app.get("/auth_config.json", (req, res) => {
+  console.log("auth");
+  res.sendFile(join(__dirname, "auth_config.json"));
+});
+
 app.get("/getAll", async (req, res) => {
   const q = await queryAll();
   res.json(q);
@@ -51,7 +57,7 @@ app.get("/insert", async (req, res) => {
 
 /**
  * API to upload the file with the multer library
- * Post the file from the frontend and 
+ * Post the file from the frontend and
  */
 app.post("/upload/:filename/:chunkNumber", upload.single("file"), (req, res) => {
   const file = req.file;
@@ -72,7 +78,7 @@ app.get("/data/:filename/:chunkNumber", (req, res) => {
   if (chunks.length !== Number(chunkNumber) || chunks.length === 0) {
     res.status = 200;
     // res.end("Number of slice files does not match");
-    res.json({ chunkNumber: req.params.chunkNumber, message: "Number of slice files does not match"})
+    res.json({ chunkNumber: req.params.chunkNumber, message: "Number of slice files does not match" });
     return;
   }
   for (let i = 1; i <= Number(chunkNumber); i++) {

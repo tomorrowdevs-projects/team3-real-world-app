@@ -11,7 +11,7 @@ module.exports = {
     publicPath: "",
     filename: "bundle.js",
     // Define the output path for images
-    assetModuleFilename: 'img/[hash][ext][query]'
+    assetModuleFilename: "img/[hash][ext][query]",
   },
 
   devServer: {
@@ -46,8 +46,14 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
+      filename: "index.html",
       template: "index.html",
       inject: "body",
+    }),
+    new HtmlWebpackPlugin({
+      filename: "upload.html",
+      template: "upload.html",
+      chunks: [],
     }),
     new MiniCssExtractPlugin({
       filename: "bundle.css",

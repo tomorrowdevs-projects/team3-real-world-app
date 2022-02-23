@@ -24,3 +24,12 @@
   display: none;
   margin-top: 10px;
 }
+
+.hidden {
+  display: none;
+}
+
+label {
+  margin-bottom: 10px;
+  display: block;
+}
