@@ -16,7 +16,7 @@ function readCSVwriteData() { // function used to parse the csv file and write i
                 skipRows: i,
                 maxRows: (i + 1000)
             })
-            .on("data", async (row) => {
+            .on("data", (row) => {
                 insertData(row)
             }).on("error", (err) => {
                 console.log(err);
