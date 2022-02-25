@@ -53,7 +53,7 @@ window.onload = async () => {
 };
 
 const updateUI = async () => {
-  console.log(auth0);
+  console.log("updateUI");
   const isAuthenticated = await auth0.isAuthenticated();
   console.log(isAuthenticated);
 
@@ -61,30 +61,27 @@ const updateUI = async () => {
   document.getElementById("btn-login").disabled = isAuthenticated;
 
   if (isAuthenticated) {
-    document.getElementById("gated-content").classList.remove("hidden");
+    // document.getElementById("gated-content").classList.remove("hidden");
+    document.getElementById("upload-content").classList.remove("hidden");
 
-    document.getElementById(
-      "ipt-access-token"
-    ).innerHTML = await auth0.getTokenSilently();
+    // document.getElementById("ipt-access-token").innerHTML = await auth0.getTokenSilently();
 
-    document.getElementById("ipt-user-profile").textContent = JSON.stringify(
-      await auth0.getUser()
-    );
-
+    document.getElementById("ipt-user-profile").textContent = JSON.stringify(await auth0.getUser());
   } else {
-    document.getElementById("gated-content").classList.add("hidden");
+    // document.getElementById("gated-content").classList.add("hidden");
+    document.getElementById("upload-content").classList.add("hidden");
   }
 };
 
 const login = async () => {
   await auth0.loginWithRedirect({
-    // redirect_uri: window.location.origin,
-    redirect_uri: "http://localhost:8081/upload.html"
+    redirect_uri: window.location.origin,
+    // redirect_uri: "http://localhost:8080/upload.html",
   });
 };
 
 const logout = () => {
   auth0.logout({
-    returnTo: window.location.origin
+    returnTo: window.location.origin,
   });
 };

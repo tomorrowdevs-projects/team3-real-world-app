@@ -16,25 +16,47 @@
   </head>
 
   <body>
-    <h2>SPA Authentication Sample</h2>
-    <p>Welcome to our page!</p>
-    <button id="btn-login" disabled="true">Log in</button>
-    <button id="btn-logout" disabled="true">Log out</button>
+    <main class="container-app">
+      <div class="wrapper">
+        <header>
+          <div class="navigation">
+            <div class="logo">
+              <img src="./img/logo.svg" alt="logo" />
+            </div>
 
-    <div class="hidden" id="gated-content">
-      <p>
-        You're seeing this content because you're currently
-        <strong>logged in</strong>
-        .
-      </p>
-      <label>
-        Access token:
-        <pre id="ipt-access-token"></pre>
-      </label>
-      <label>
-        User profile:
-        <pre id="ipt-user-profile"></pre>
-      </label>
-    </div>
+            <div class="login">
+              <img src="./img/user_icon.svg" alt="user icon" />
+              <a href="#" id="btn-login" disabled="true">Login</a>
+            </div>
+            <div class="login">
+              <img src="./img/user_icon.svg" alt="user icon" />
+              <a href="#" id="btn-logout" disabled="true">Log out</a>
+            </div>
+          </div>
+        </header>
+
+        <div class="content">
+          <h1>Upload your orders and keep track of your Business!</h1>
+          <button class="btn">Get Started Now</button>
+        </div>
+      </div>
+
+      <div class="hidden" id="upload-content">
+        <form action="" class="flex flex-col">
+          <input type="file" id="input" accept=".csv" class="input" />
+          <div class="flex align-center">
+            <progress value="0" max="100" id="progress" class="progress"></progress>
+            <button id="cancelUploadBtn">X</button>
+          </div>
+          <div id="file-info"></div>
+          <div id="chunk-info"></div>
+        </form>
+
+        <!-- <label>
+          User profile:
+          <pre id="ipt-user-profile"></pre>
+        </label> -->
+      </div>
+    </main>
   </body>
 </html>
