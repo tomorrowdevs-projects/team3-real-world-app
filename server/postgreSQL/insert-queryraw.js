@@ -4,40 +4,38 @@ const csv = require('@fast-csv/parse');
 const prisma = new PrismaClient();
 
 let invalidInserts = [] // an array where data of a failed insert will be populated 
-var counter = 1  // this is the counter of csv row number we will be reading
 
-async function readCSVwriteData() { // function used to parse the csv file and write in the db
+function readCSVwriteData() { // function used to parse the csv file and write in the db
     console.log(new Date().toLocaleString());
 
-    let csvStream = await csv.parseFile("../../big-faker-creation/csv2upload/fake_data_stream.csv", {
-            headers: true,
-            delimiter: ";"
-        })
-        .on("data", async (record) => {
-            csvStream.pause();
-            ++counter;
-            await insertData(record)
-            csvStream.resume();
+    for (let i = 0; i < 100000; i+=2000) {
 
-        }).on("end", () => {
-            //console.log(invalidInserts)
+        csv.parseFile("../csv/fake_data_stream.csv", {
+            headers: true,
+            delimiter: ";",
+            skipRows: i,
+            maxRows: (i + 2000)
+
+        })
+        .on("data", (data) => {  
+
+            insertData(data)           
+
+        })
+        .on("end", () => {
             console.log("Job is done!");
             console.log(new Date().toLocaleString());
-        }).on("error", (err) => {
+              
+        })
+        .on("error", (err) => {
             console.log(err);
         });
-}
+
+    }
 
 
-async function queryAll() { // function used to query all the data in the db
-    const allOrders = await prisma.order.findMany({
-        include: {
-            user: true,
-            product: true,
-        },
-    });
-    return allOrders
 }
+
 
 async function insertData(record) { // function used to insert csv row data in the db
     try {
