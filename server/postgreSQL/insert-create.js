@@ -1,44 +1,45 @@
 const { prisma } = require('./prisma-client');
 const csv = require('@fast-csv/parse');
+const path = require('path');
+const fs = require('fs');
 
 const smallFile = "../../big-faker-creation/csv2upload/fake_data_stream.csv";
-const bigFile = "../csv/fake_data_stream.csv";
+const bigFile = path.join(__dirname, "../csv/fake_data_stream.csv");
 
 const start = Date.now();
-
-
 
 async function readCSVwriteData() {
     console.log(new Date().toLocaleString());
 
-    csv.parseFile(bigFile, {
+    fs.createReadStream(bigFile, {
         headers: true,
         delimiter: ";",
         //skipRows: i,
         maxRows: 10000
+    })
+        .pipe(csv.parse())
+        .on("data", (data) => {
 
-    })
-    .on("data", async (data) => {  
+            insertData(data)
+                .then(() => console.log(`Insert`))
+                .catch(console.error)
 
-        await insertData(data);
-        console.log('insert')
+        })
+        .on("end", () => {
+            console.log("Data transacted!");
+            console.log(new Date().toLocaleString());
 
-    })
-    .on("end", () => {
-        console.log("Data transacted!");
-        console.log(new Date().toLocaleString());
-        
-    })
-    .on("error", (err) => {
-        console.log(err);
-    })
+        })
+        .on("error", (err) => {
+            console.log(err);
+        })
 }
 
 
 function insertData(record) {
     return prisma.order.create({
         data: {
-            orderDate: new Date(record["Order Date"]),
+            orderDate: new Date(),
             externalId: record["Order ID"],
             quantity: parseInt(record["Quantity"]),
             price: parseFloat(record["Price"]),
@@ -65,7 +66,6 @@ function insertData(record) {
             },
         }
     })
-    //.catch((err) => {throw err})
 }
 
 readCSVwriteData()
