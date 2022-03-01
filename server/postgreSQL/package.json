@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@prisma/client": "^3.9.2"
+    "@prisma/client": "^3.9.2",
+    "fast-csv": "^4.3.6"
   }
 }

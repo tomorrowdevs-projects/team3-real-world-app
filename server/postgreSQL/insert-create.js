@@ -1,5 +1,5 @@
 const { prisma } = require('./prisma-client');
-const csv = require('@fast-csv/parse');
+const { parse } = require('fast-csv');
 const path = require('path');
 const fs = require('fs');
 
@@ -11,17 +11,16 @@ const start = Date.now();
 async function readCSVwriteData() {
     console.log(new Date().toLocaleString());
 
-    fs.createReadStream(bigFile, {
-        headers: true,
-        delimiter: ";",
-        //skipRows: i,
-        maxRows: 10000
-    })
-        .pipe(csv.parse())
+    fs.createReadStream(bigFile)
+        .pipe(parse({
+            headers: true,
+            delimiter: ";"
+            //skipRows: i,
+            //maxRows: 10000
+        }))
         .on("data", (data) => {
 
             insertData(data)
-                .then(() => console.log(`Insert`))
                 .catch(console.error)
 
         })
@@ -37,6 +36,7 @@ async function readCSVwriteData() {
 
 
 function insertData(record) {
+    //console.log(record);
     return prisma.order.create({
         data: {
             orderDate: new Date(),
