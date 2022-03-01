@@ -6,7 +6,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
   entry: {
     index: "./src/javascript/index.js",
-    upload: "./src/javascript/upload.js",
+    // upload: "./src/javascript/upload.js",
   },
 
   output: {
@@ -52,14 +52,15 @@ module.exports = {
       filename: "index.html",
       template: "index.html",
       inject: "body",
-      chunks: ["index", "upload"],
+      chunks: ["index"],
+      // chunks: ["index", "upload"],
     }),
-    new HtmlWebpackPlugin({
-      filename: "upload.html",
-      template: "upload.html",
-      inject: "body",
-      chunks: ["index", "upload"],
-    }),
+    // new HtmlWebpackPlugin({
+    //   filename: "upload.html",
+    //   template: "upload.html",
+    //   inject: "body",
+    //   chunks: ["index", "upload"],
+    // }),
     new MiniCssExtractPlugin({
       filename: "bundle.css",
     }),
@@ -68,7 +69,9 @@ module.exports = {
         {
           from: "./src/assets/img",
           to: "./img",
-        },
+        },{
+          from: path.resolve(__dirname, "auth_config.json")
+        }
       ],
     }),
   ],
