@@ -1,27 +1,49 @@
-const { prisma } = require('./prisma-client');
-const { parse } = require('fast-csv');
+const {
+    prisma
+} = require('./prisma-client');
+const {
+    parse
+} = require('fast-csv');
 const path = require('path');
 const fs = require('fs');
+const {
+    Stream
+} = require('stream');
+const Promise = require("bluebird")
 
 const smallFile = "../../big-faker-creation/csv2upload/fake_data_stream.csv";
 const bigFile = path.join(__dirname, "../csv/fake_data_stream.csv");
 
 const start = Date.now();
+let rows = []
+let counter = 0
 
-async function readCSVwriteData() {
+function readCSVwriteData() {
     console.log(new Date().toLocaleString());
 
-    fs.createReadStream(bigFile)
+    const stream = fs.createReadStream(bigFile)
         .pipe(parse({
             headers: true,
-            delimiter: ";"
+            delimiter: ";",
             //skipRows: i,
-            //maxRows: 10000
+            // maxRows: 10000
         }))
-        .on("data", (data) => {
-
-            insertData(data)
-                .catch(console.error)
+        .on("data", async (data) => {
+            counter++
+            rows.push(data)
+            if (counter == 1000) {
+                stream.pause()
+                await Promise.map(rows, async (row) => {
+                    await insertData(row).catch(console.error)
+                }, {
+                    concurrency: 50
+                })
+                rows = []
+                counter = 0
+                stream.resume()
+            }
+            // insertData(data)
+            //     .catch(console.error)
 
         })
         .on("end", () => {
@@ -35,9 +57,9 @@ async function readCSVwriteData() {
 }
 
 
-function insertData(record) {
+async function insertData(record) {
     //console.log(record);
-    return prisma.order.create({
+    await prisma.order.create({
         data: {
             orderDate: new Date(),
             externalId: record["Order ID"],
