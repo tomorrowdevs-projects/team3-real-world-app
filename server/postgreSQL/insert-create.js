@@ -66,16 +66,21 @@ async function insertData(record) {
             quantity: parseInt(record["Quantity"]),
             price: parseFloat(record["Price"]),
             user: {
-                create: {
-                    firstname: record["First Name"],
-                    lastname: record["Last Name"],
-                    email: record["Email"],
-                    address: record["Address"],
-                    zip: record["Zip"],
-                    city: record["City"],
-                    country: record["Country"],
-                    phone: record["Phone"],
-                    username: record["Username"]
+                connectOrCreate: {
+                    where: {
+                        email: record["Email"]
+                    },
+                    create: {
+                        firstname: record["First Name"],
+                        lastname: record["Last Name"],
+                        email: record["Email"],
+                        address: record["Address"],
+                        zip: record["Zip"],
+                        city: record["City"],
+                        country: record["Country"],
+                        phone: record["Phone"],
+                        username: record["Username"]
+                    },
                 },
             },
             product: {
