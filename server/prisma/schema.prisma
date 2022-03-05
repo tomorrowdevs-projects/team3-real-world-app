@@ -25,7 +25,7 @@ model User {
 
 model Product {
   id          Int      @id @default(autoincrement())
-  name        String   @db.VarChar(150)
+  name        String?  @unique(map: "unique_product") @db.VarChar(150)
   productType String   @db.VarChar(50)
   color       String   @db.VarChar(50)
   description String?

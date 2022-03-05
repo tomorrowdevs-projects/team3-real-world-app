@@ -17,6 +17,7 @@
   "dependencies": {
     "@fast-csv/parse": "^4.3.6",
     "@prisma/client": "^3.9.2",
+    "bluebird": "^3.7.2",
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "fast-csv": "^4.3.6",

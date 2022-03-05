@@ -11,8 +11,8 @@ const {
 } = require('stream');
 const Promise = require("bluebird")
 
-const smallFile = "../../big-faker-creation/csv2upload/fake_data_stream.csv";
-const bigFile = path.join(__dirname, "../csv/fake_data_stream.csv");
+const smallFile = "../big-faker-creation/csv2upload/fake_data_stream.csv";
+const bigFile = path.join(__dirname, "./csv/fake_data_stream.csv");
 
 const start = Date.now();
 let rows = []
@@ -93,7 +93,7 @@ async function insertData(record) {
                         description: record["Description"]
                     },
                 },
-            },
+            }
         }
     })
 }
