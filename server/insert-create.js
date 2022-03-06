@@ -1,5 +1,5 @@
 const {
-    prisma
+    prisma, prismaError
 } = require('./prisma-client');
 const {
     parse
@@ -34,15 +34,24 @@ function readCSVwriteData() {
             if (counter == 1000) {
                 stream.pause()
                 await Promise.map(rows, async (row) => {
-                    await insertData(row).catch(console.error)
-                }, {
+                    await insertData(row).catch((e) => {
+                        if (e instanceof prismaError) {
+                            if (e.code === 'P2002') {
+                              console.log(
+                                `There is a unique constraint violation, user or product can't be duplicated`
+                              )
+                            }
+                        } else {
+                            console.error
+                        }
+                    }), {
                     concurrency: 50
+                    }
                 })
                 rows = []
                 counter = 0
                 stream.resume()
             }
-
         })
         .on("end", () => {
             console.log("Data transacted!");
