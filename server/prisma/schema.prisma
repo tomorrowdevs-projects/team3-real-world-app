@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,29 +7,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model User {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   firstname String   @db.VarChar(50)
   lastname  String   @db.VarChar(50)
-  username  String?   @db.VarChar(50)
-  email     String?   @db.VarChar(100)
-  phone     String?   @db.VarChar(30)
-  address   String?   @db.VarChar(255)
-  zip       String?   @db.VarChar(20)
-  city      String?   @db.VarChar(50)
-  country   String?   @db.VarChar(70)
+  username  String?  @db.VarChar(50)
+  email     String?  @unique(map: "unique_email") @db.VarChar(100)
+  phone     String?  @db.VarChar(30)
+  address   String?  @db.VarChar(255)
+  zip       String?  @db.VarChar(20)
+  city      String?  @db.VarChar(50)
+  country   String?  @db.VarChar(70)
   Order     Order[]
 }
 
 model Product {
   id          Int      @id @default(autoincrement())
-  name        String   @db.VarChar(150)
-  productType        String   @db.VarChar(50)
+  name        String?  @unique(map: "unique_product") @db.VarChar(150)
+  productType String   @db.VarChar(50)
   color       String   @db.VarChar(50)
-  description String?  
+  description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
   Order       Order[]
@@ -42,12 +38,12 @@ model Order {
   id         Int      @id @default(autoincrement())
   externalId String   @db.VarChar(20)
   orderDate  DateTime @db.Timestamptz(3)
-  user       User     @relation(fields: [userId], references: [id])
   userId     Int
-  product    Product  @relation(fields: [productId], references: [id])
   productId  Int
-  price      Float    @db.DoublePrecision
+  price      Float
   quantity   Int
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now())
+  product    Product  @relation(fields: [productId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
 }
