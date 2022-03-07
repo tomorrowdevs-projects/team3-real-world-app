@@ -1,5 +1,5 @@
 const {
-    prisma, prismaError
+    prisma
 } = require('./prisma-client');
 const {
     parse
@@ -14,7 +14,6 @@ const Promise = require("bluebird")
 const smallFile = "../big-faker-creation/csv2upload/fake_data_stream.csv";
 const bigFile = path.join(__dirname, "./csv/fake_data_stream.csv");
 
-const start = Date.now();
 let rows = []
 let counter = 0
 
@@ -28,29 +27,20 @@ function readCSVwriteData() {
             //skipRows: i,
             // maxRows: 10000
         }))
-        .on("data", async (data) => {
+        .on("data", (data) => {
             counter++
             rows.push(data)
             if (counter == 1000) {
                 stream.pause()
-                await Promise.map(rows, async (row) => {
-                    await insertData(row).catch((e) => {
-                        if (e instanceof prismaError) {
-                            if (e.code === 'P2002') {
-                              console.log(
-                                `There is a unique constraint violation, user or product can't be duplicated`
-                              )
-                            }
-                        } else {
-                            console.error
-                        }
-                    }), {
-                    concurrency: 50
+                Promise.map(rows, async (row) => {
+                    await insertData(row).catch(console.error), {
+                    concurrency: 10
                     }
+                }).then(() => {
+                    rows = []
+                    counter = 0
+                    stream.resume()
                 })
-                rows = []
-                counter = 0
-                stream.resume()
             }
         })
         .on("end", () => {

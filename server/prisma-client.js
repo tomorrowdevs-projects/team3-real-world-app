@@ -1,9 +1,12 @@
-const { PrismaClient, Prisma } = require('@prisma/client');
+const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient()
-const prismaError = Prisma.PrismaClientKnownRequestError
-
+/*{
+    log: [
+        "query"
+    ],
+  });
+*/
 module.exports = {
-    prisma,
-    prismaError
+    prisma
 }
