@@ -4,14 +4,17 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  entry: "./src/javascript/index.js",
+  entry: {
+    index: "./src/javascript/index.js",
+    // upload: "./src/javascript/upload.js",
+  },
 
   output: {
     path: path.resolve(__dirname, "dist"),
     publicPath: "",
-    filename: "bundle.js",
+    filename: "[name].js",
     // Define the output path for images
-    assetModuleFilename: 'img/[hash][ext][query]'
+    assetModuleFilename: "img/[hash][ext][query]",
   },
 
   devServer: {
@@ -46,9 +49,18 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
+      filename: "index.html",
       template: "index.html",
       inject: "body",
+      chunks: ["index"],
+      // chunks: ["index", "upload"],
     }),
+    // new HtmlWebpackPlugin({
+    //   filename: "upload.html",
+    //   template: "upload.html",
+    //   inject: "body",
+    //   chunks: ["index", "upload"],
+    // }),
     new MiniCssExtractPlugin({
       filename: "bundle.css",
     }),
@@ -57,7 +69,9 @@ module.exports = {
         {
           from: "./src/assets/img",
           to: "./img",
-        },
+        },{
+          from: path.resolve(__dirname, "auth_config.json")
+        }
       ],
     }),
   ],
