@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const { readCSVwriteData } = require("../query-db/insert-create")
 
 const router = express.Router();
 
@@ -69,6 +70,7 @@ router.get("/data/:filename/:chunkNumber", (req, res) => {
   // File merge succeeded, file information can be stored in the library.
   res.status = 200;
   res.end("Merge succeeded");
+  readCSVwriteData(filePath);
 });
 
 module.exports = router;
