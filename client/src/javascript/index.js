@@ -162,8 +162,11 @@ async function uploadFile(start) {
 }
 
 const cancelUploadBtn = document.querySelector("#cancelUploadBtn");
-cancelUploadBtn.addEventListener("click", () => {
-  source.cancel();
+cancelUploadBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  source.cancel("Upload cancelled");
+  input.value = "";
+  document.querySelector("#progress").value = 0;
 });
 
 function writeData(chunkNumber, token) {
