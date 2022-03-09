@@ -1,4 +1,5 @@
 const { writeFakeDataStreams } = require("./writeFakeDataStreams");
+const { appendFake } = require("./appendFakeData");
 
 const readline = require("readline").createInterface({
   input: process.stdin,
@@ -7,7 +8,7 @@ const readline = require("readline").createInterface({
 
 readline.question("How many rows do you want to create? ", (rowNumbers) => {
   console.log(`Ok row numbers ${rowNumbers}`);
-  writeFakeDataStreams(rowNumbers);
+  appendFake(rowNumbers);
 
   readline.close();
 });
