@@ -1,4 +1,6 @@
 {
   "domain": "dev-b776ij9u.us.auth0.com",
-  "clientId": "LZOZY2jLaOjzJ7Njbjam29jKK2C991Dy"
+  "clientId": "LZOZY2jLaOjzJ7Njbjam29jKK2C991Dy",
+  "audience": "http://localhost:3000/api",
+  "algorithms": ["RS256"]
 }

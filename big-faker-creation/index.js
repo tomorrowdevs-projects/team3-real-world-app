@@ -1,20 +1,14 @@
-const { appendFake } = require("./appendFakeData");
 const { writeFakeDataStreams } = require("./writeFakeDataStreams");
+const { appendFake } = require("./appendFakeData");
 
+const readline = require("readline").createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-const readline = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
-  
-  readline.question('Do you want to create the csv using streams (0) or in append sync mode (1)? ', createFile => {
-      if (createFile == 0) {
-        console.log(`Ok Streams!`);
-        writeFakeDataStreams();
-      } else if (createFile == 1) {
-        console.log(`Ok Sync!`);
-        appendFake();
-      }
-    
-    readline.close();
-  });
+readline.question("How many rows do you want to create? ", (rowNumbers) => {
+  console.log(`Ok row numbers ${rowNumbers}`);
+  appendFake(rowNumbers);
+
+  readline.close();
+});
