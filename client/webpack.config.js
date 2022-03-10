@@ -42,6 +42,11 @@ module.exports = {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: "asset/resource",
       },
+
+      {
+        test: /\.(woff|woff2|ttf|otf|eot)$/,
+        type: "asset/resource",
+      },
     ],
   },
 
@@ -69,9 +74,10 @@ module.exports = {
         {
           from: "./src/assets/img",
           to: "./img",
-        },{
-          from: path.resolve(__dirname, "auth_config.json")
-        }
+        },
+        {
+          from: path.resolve(__dirname, "auth_config.json"),
+        },
       ],
     }),
   ],

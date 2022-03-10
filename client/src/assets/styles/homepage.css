@@ -1,7 +1,14 @@
+@font-face {
+    font-family: "Outfit";
+    src: url("/src/assets/fonts/Outfit/Outfit-Regular.ttf");
+}
+@font-face {
+    font-family: "OutfitBold";
+    src: url("/src/assets/fonts/Outfit/Outfit-Bold.ttf");
+}
 /* Reset CSS */
 *, *::before, *::after {
     box-sizing: border-box;
-    font-family: 'Outfit', sans-serif;
 }
 /* CSS Variables */
 :root {
@@ -9,9 +16,11 @@
     --secondary-color: #FFA63E;
     --background-color: #E5E5E5;
     --white: #fff;
+    --contrast: #7D8AFF;
 }
 body {
     margin: 0;
+    font-family: 'Outfit', sans-serif;
 }
 /* RESET CSS */
 img {
@@ -22,23 +31,20 @@ h1 {
     color: var(--primary-color);
     font-size: 3rem;
     line-height: 3rem;
-    max-width: 500px;
+    font-family: 'OutfitBold', sans-serif;
 }
 .container-app {
     background-color: var(--background-color);
-    background-image: url("../img/hero.png");
-    background-position: center center;
+    background-image: url("../img/mobile.svg");
     background-repeat: no-repeat;
+    background-size: cover;
     width: 100%;
     height: 100vh;
-    padding: 3em;
+    padding: 1em;
 }
 .wrapper {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
-}
-.logo img {
-    height: 50px;
 }
 .login {
     width: 15%;
@@ -49,10 +55,14 @@ h1 {
     width: 25px;
 }
 .login a {
-    margin-left: 0;
+    margin-left: .3em;
     text-decoration: none;
     color: var(--primary-color);
     font-weight: 600;
+    font-size: 1.3rem;
+}
+.logo img {
+    height: 50px;
 }
 .navigation {
     display: flex;
@@ -64,25 +74,46 @@ h1 {
     justify-content: center;
     align-items: baseline;
 }
+.content {
+    padding: 3em 0;
+}
 .btn {
     border: none;
     outline: none;
-    padding: .3em .5em;
+    padding: .6em 1.2em;
     background-color: var(--secondary-color);
     color: #fff;
-    border-radius: 1em;
-    font-size: 1.125rem;
-    font-weight: 700;
+    border-radius: 3em;
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
 }
-.content {
-    padding: 5rem 0;
+.btn:hover, .btn:focus {
+    background-color: var(--contrast);
+}
+.button[disabled] {
+    color: red;
 }
 
 /* media queries */
 @media (min-width: 500px) {
-    .heading {
-        font-size: 4.5rem;
-        line-height: 4.5rem;
-        color: var(--white);
+    h1 {
+        font-size: 4rem;
+        line-height: 4rem;
+        max-width: 650px;
+        margin: 3.125 0;
+    }
+    .btn {
+        font-size: 1.25rem;
     }
 }
+@media (min-width: 600px) {
+    .container-app {
+        background-image: url("../img/sfondo.svg");
+        background-repeat: no-repeat;
+        background-position: 150px;
+    }
+    .login a {
+        margin-left: 0;
+    }
+} 

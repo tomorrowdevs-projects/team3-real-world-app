@@ -64,13 +64,16 @@ const updateUI = async () => {
   if (isAuthenticated) {
     // document.getElementById("gated-content").classList.remove("hidden");
     document.getElementById("upload-content").classList.remove("hidden");
-
     // document.getElementById("ipt-access-token").innerHTML = await auth0.getTokenSilently();
-
+    document.getElementById("btn-container-login").classList.add("hidden");
+    document.getElementById("btn-container-logout").classList.remove("hidden");
     // document.getElementById("ipt-user-profile").textContent = JSON.stringify(await auth0.getUser());
   } else {
     // document.getElementById("gated-content").classList.add("hidden");
     document.getElementById("upload-content").classList.add("hidden");
+
+    document.getElementById("btn-container-login").classList.remove("hidden");
+    document.getElementById("btn-container-logout").classList.add("hidden");
   }
 };
 
@@ -135,7 +138,9 @@ async function uploadFile(start) {
     //Listen for the onuploadprogress event
     onUploadProgress: function (progressEvent) {
       if (file.size < chunkSize + 1) {
-        var percent = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+        var percent = Math.round(
+          (progressEvent.loaded / progressEvent.total) * 100
+        );
       } else {
         var percent = Math.round((uploadedChunck / file.size) * 100);
       }
@@ -145,7 +150,11 @@ async function uploadFile(start) {
   };
 
   axios
-    .post(`http://localhost:3000/upload/${file.name}/${chunkNumber}`, formData, config)
+    .post(
+      `http://localhost:3000/upload/${file.name}/${chunkNumber}`,
+      formData,
+      config
+    )
     .then((response) => {
       if (nextChunk < file.size) {
         uploadFile(nextChunk);
