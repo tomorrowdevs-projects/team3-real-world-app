@@ -1,5 +1,6 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["extendedIndexes"]
 }
 
 datasource db {
@@ -21,6 +22,8 @@ model User {
   city      String?  @db.VarChar(50)
   country   String?  @db.VarChar(70)
   Order     Order[]
+
+  @@index([email], type: Hash)
 }
 
 model Product {
@@ -32,6 +35,8 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now())
   Order       Order[]
+
+  @@index([name], type: Hash)
 }
 
 model Order {
@@ -46,4 +51,7 @@ model Order {
   updatedAt  DateTime @default(now())
   product    Product  @relation(fields: [productId], references: [id])
   user       User     @relation(fields: [userId], references: [id])
+
+  @@index([userId], type: Hash)
+  @@index([productId], type: Hash)
 }

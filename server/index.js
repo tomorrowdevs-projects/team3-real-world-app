@@ -1,4 +1,4 @@
-const { queryAll } = require("./query-db/query");
+//const { queryAll } = require("./query-db/query");
 const express = require("express");
 const cors = require("cors");
 const jwt = require("express-jwt");
