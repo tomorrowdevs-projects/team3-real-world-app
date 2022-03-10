@@ -89,7 +89,7 @@ async function queryOrders(dateMin, dateMax, productId=undefined, name=undefined
   })
   
   console.log(turnover)
-  return getOrders, turnover
+  return turnover
 };
 
 

@@ -6,9 +6,10 @@ const { Stream } = require("stream");
 const Promise = require("bluebird");
 const prismaError = Prisma.PrismaClientKnownRequestError;
 
-
+/*
 const smallFile = path.join(__dirname, "../../big-faker-creation/csv2upload/fake_data_stream.csv");
 const bigFile = path.join(__dirname, "./csv/fake_data_stream.csv");
+*/
 
 
 let rows = [];
