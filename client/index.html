@@ -5,7 +5,7 @@
     <title>SPA SDK Sample</title>
     <style>
       .hidden {
-        display: none;
+        display: none!important;
       }
 
       label {
@@ -16,50 +16,148 @@
   </head>
 
   <body>
-    <main class="container-app">
+    <div class="container-app">
       <div class="wrapper">
         <header>
           <div class="navigation">
+
             <div class="logo">
               <img src="./img/logo.svg" alt="logo" />
             </div>
 
             <div class="login" id="btn-container-login">
-              <img src="./img/user_icon.svg" alt="user icon" />
-              <a class="button" href="#" id="btn-login" >Login</a>
+              <img src="./img/login_icon.svg" alt="login icon" />
+              <a href="#" id="btn-login" >Login</a>
             </div>
-            <div class="hidden" id="btn-container-logout">
-              <img src="./img/user_icon.svg" alt="user icon" />
-              <a class="button" href="#" id="btn-logout" >Log out</a>
+
+            <div class="login hidden" id="btn-container-logout">
+              <img src="./img/logout_icon.svg" alt="logout icon" />
+              <a href="#" id="btn-logout" >Logout</a>
             </div>
+
           </div>
         </header>
 
-        <div class="content">
-          <h1>Upload your orders and keep track of your Business!</h1>
+        <main class="content">
+          <h1 class="heading">Upload your orders and keep track of your Business!</h1>
           <button class="btn">Get Started Now</button>
-        </div>
+
+          <div class="main-app">
+
+            <!-- parte sinistra -->
+            <div class="upload-panel">
+              <img src="./img/upload-icon.svg" alt="upload icon">
+              <button class="btn btn-import-file" onclick="document.getElementById('input').click()">Import your file</button>
+
+              <div class="upload-panel-step">
+
+                <div class="single-step">
+                  <div class="number">1</div>
+                  <div class="text">
+                    <p>Choose your .csv file 
+                      with the order list</p>
+                  </div>
+                </div>
+
+                <div class="single-step">
+                  <div class="number">2</div>
+                  <div class="text">
+                    <p>Wait for the file to upload</p>
+                  </div>
+                </div>
+
+                <div class="single-step">
+                  <div class="number">3</div>
+                  <div class="text">
+                    <p>Check your email. You will be 
+                      notified when your data is ready!</p>
+                  </div>
+                </div>
+
+                <div class="single-step">
+                  <div class="number">4</div>
+                  <div class="text">
+                    <p>View your order information</p>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+
+            <!-- parte destra -->
+            <div class="dashboard">
+              <!-- head -->
+              <div class="container-filters">
+                <div>
+                  <span>Date Range</span>
+                  <input type="date" name="" id="">
+                  <input type="date" name="" id="">
+                </div>
+
+                <div>
+                  <span>Select Range</span>
+                    <select name="" id="">
+                    <option value="test">test</option>
+                    <option value="test">test 2</option>
+                    <option value="test">test 3</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- main -->
+              <div class="container-box">
+                <div class="outside-box">
+                  <span>Number of Orders</span>
+                  <div class="box violet">viola</div>
+                </div>
+                <div class="outside-box">
+                  <span>Number of Customers</span>
+                  <div class="box orange">arancione</div>
+                </div>
+                <div class="outside-box">
+                  <span>Average Order Value</span>
+                  <div class="box grey">grigio</div>
+                </div>
+              </div>
+
+              <!-- footer -->
+              <div class="turnover">
+                ciao
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+
+
+
+          <div class="hidden" id="upload-content">
+
+            <form action="" class="flex flex-col">
+              <button class="btn btn-import-file" onclick="document.getElementById('input').click()">Import your file</button>
+              <input type="file" id="input" accept=".csv" class="input" style="display:none;" />
+              <div class="flex align-center">
+                <progress value="0" max="100" id="progress" class="progress"></progress>
+                <button id="cancelUploadBtn">X</button>
+              </div>
+              <div id="file-info"></div>
+              <div id="chunk-info"></div>
+            </form>
+    
+          <div id="loading" style="display: none;">Loading ...</div>
+          </main>
       </div>
 
-      <div class="hidden" id="upload-content">
-
-        <form action="" class="flex flex-col">
-          <input type="file" id="input" accept=".csv" class="input" />
-          <div class="flex align-center">
-            <progress value="0" max="100" id="progress" class="progress"></progress>
-            <button id="cancelUploadBtn">X</button>
-          </div>
-          <div id="file-info"></div>
-          <div id="chunk-info"></div>
-        </form>
-
-        <div id="loading" style="display: none;">Loading ...</div>
+      
 
         <!-- <label>
           User profile:
           <pre id="ipt-user-profile"></pre>
         </label> -->
       </div>
-    </main>
+    </div>
   </body>
 </html>

@@ -5,6 +5,8 @@ let auth0 = null;
 
 const loginButton = document.getElementById("btn-login");
 const logoutButton = document.getElementById("btn-logout");
+const button = document.querySelector(".btn");
+const heading = document.querySelector(".heading");
 
 loginButton.addEventListener("click", async () => {
   await login();
@@ -68,6 +70,10 @@ const updateUI = async () => {
     document.getElementById("btn-container-login").classList.add("hidden");
     document.getElementById("btn-container-logout").classList.remove("hidden");
     // document.getElementById("ipt-user-profile").textContent = JSON.stringify(await auth0.getUser());
+
+    // hide button
+    button.classList.add("hidden");
+    heading.classList.add("hidden");
   } else {
     // document.getElementById("gated-content").classList.add("hidden");
     document.getElementById("upload-content").classList.add("hidden");
