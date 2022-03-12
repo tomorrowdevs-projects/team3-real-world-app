@@ -1,5 +1,4 @@
 const { prisma } = require("../prisma-client");
-const { get } = require("../routes/upload");
 
 async function queryAll() {
     const allOrders = await prisma.order.findMany({
@@ -92,11 +91,31 @@ async function queryOrders(dateMin, dateMax, productId=undefined, name=undefined
   return turnover
 };
 
+// Numero di Clienti singoli in un periodo temporale definibile dall’utente 
+async function queryUsers(dateMin, dateMax) {
+  const getUsers = await prisma.order.findMany({
+    where: {
+      orderDate: {
+        gte: new Date(dateMin),
+        lte: new Date(dateMax),
+      },
+    },
+    distinct: ['userId'],
+    select: {
+        userId: true,
+    },
+  })
+  .catch((e) => {
+    throw e
+  })  
+  console.log(getUsers.length)
+  return getUsers.length
+};
+
 
 module.exports = {
   queryOrders
   }
 
-
-queryOrders("2022-03-10", "2022-03-11")//, undefined, 'Incredible Granite Chair')
+queryUsers("2022-03-08", "2022-03-13")//, undefined, 'Incredible Granite Chair')
 // aggiungere un giorno nella data finale 
