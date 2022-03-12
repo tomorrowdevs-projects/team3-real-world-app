@@ -113,9 +113,25 @@ async function queryUsers(dateMin, dateMax) {
 };
 
 
+// Valore medio degli ordini eseguiti 
+async function queryTotalOrders() {
+  const getTotalOrders = await prisma.order.aggregate({
+    _avg: {
+      price: true,
+    },
+  })
+    .catch((e) => {
+    throw e
+  })  
+  console.log(getTotalOrders)
+  return getTotalOrders
+};
+
+
 module.exports = {
   queryOrders
   }
 
-queryUsers("2022-03-08", "2022-03-13")//, undefined, 'Incredible Granite Chair')
+//queryUsers("2022-03-08", "2022-03-13")//, undefined, 'Incredible Granite Chair')
+queryTotalOrders()
 // aggiungere un giorno nella data finale 
