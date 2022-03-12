@@ -99,7 +99,7 @@ function readCSVwriteData(filePath) {
 async function insertData(record) {
   await prisma.order.create({
     data: {
-      orderDate: new Date(),
+      orderDate: new Date(record["Order Date"]),
       externalId: record["Order ID"],
       quantity: parseInt(record["Quantity"]),
       price: parseFloat(record["Price"]),
@@ -142,4 +142,4 @@ module.exports = {
   readCSVwriteData,
 };
 
-readCSVwriteData(bigFile)
+readCSVwriteData(smallFile)
