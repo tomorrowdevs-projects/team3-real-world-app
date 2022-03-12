@@ -7,6 +7,7 @@ const loginButton = document.getElementById("btn-login");
 const logoutButton = document.getElementById("btn-logout");
 const button = document.querySelector(".btn");
 const heading = document.querySelector(".heading");
+const mainApp = document.querySelector(".main-app");
 
 loginButton.addEventListener("click", async () => {
   await login();
@@ -74,6 +75,7 @@ const updateUI = async () => {
     // hide button
     button.classList.add("hidden");
     heading.classList.add("hidden");
+    mainApp.classList.remove("hidden");
   } else {
     // document.getElementById("gated-content").classList.add("hidden");
     document.getElementById("upload-content").classList.add("hidden");

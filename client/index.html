@@ -42,12 +42,12 @@
           <h1 class="heading">Upload your orders and keep track of your Business!</h1>
           <button class="btn">Get Started Now</button>
 
-          <div class="main-app">
+          <div class="main-app hidden">
 
             <!-- parte sinistra -->
             <div class="upload-panel">
               <img src="./img/upload-icon.svg" alt="upload icon">
-              <button class="btn btn-import-file" onclick="document.getElementById('input').click()">Import your file</button>
+              <!-- <button class="btn btn-import-file" onclick="document.getElementById('input').click()">Import your file</button> -->
 
               <div class="upload-panel-step">
 
@@ -88,10 +88,14 @@
             <div class="dashboard">
               <!-- head -->
               <div class="container-filters">
-                <div>
-                  <span>Date Range</span>
-                  <input type="date" name="" id="">
-                  <input type="date" name="" id="">
+                <div class="wrapper-dates-field">
+                  <div>
+                    <input type="date" name="" id="">
+                  </div>
+  
+                  <div>
+                    <input type="date" name="" id="">
+                  </div>
                 </div>
 
                 <div>
@@ -102,42 +106,47 @@
                     <option value="test">test 3</option>
                   </select>
                 </div>
+
               </div>
 
               <!-- main -->
               <div class="container-box">
                 <div class="outside-box">
                   <span>Number of Orders</span>
-                  <div class="box violet">viola</div>
+                  <div class="box violet">
+                    <h2>30.523</h2>
+                  </div>
                 </div>
                 <div class="outside-box">
                   <span>Number of Customers</span>
-                  <div class="box orange">arancione</div>
+                  <div class="box orange">
+                    <h2>18.523</h2>
+                  </div>
                 </div>
                 <div class="outside-box">
                   <span>Average Order Value</span>
-                  <div class="box grey">grigio</div>
+                  <div class="box grey">
+                    <h2>13.423 $</h2>
+                  </div>
                 </div>
               </div>
 
               <!-- footer -->
               <div class="turnover">
-                ciao
+                <span>Turnover</span>
+                <div class="turnover-blue">
+                  <h2>10.523.283 $</h2>
+                </div>
               </div>
 
             </div>
 
           </div>
 
-
-
-
-
-
           <div class="hidden" id="upload-content">
 
             <form action="" class="flex flex-col">
-              <button class="btn btn-import-file" onclick="document.getElementById('input').click()">Import your file</button>
+              <!-- <button class="btn btn-import-file" onclick="document.getElementById('input').click()">Import your file</button> -->
               <input type="file" id="input" accept=".csv" class="input" style="display:none;" />
               <div class="flex align-center">
                 <progress value="0" max="100" id="progress" class="progress"></progress>

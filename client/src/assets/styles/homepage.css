@@ -1,3 +1,4 @@
+/* fonts includes */
 @font-face {
     font-family: "Outfit";
     src: url("/src/assets/fonts/Outfit/Outfit-Regular.ttf");
@@ -10,7 +11,6 @@
     font-family: "OutfitExtraBold";
     src: url("/src/assets/fonts/Outfit/Outfit-ExtraBold.ttf");
 }
-
 /* Reset CSS */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -25,7 +25,6 @@
     --contrast: #7D8AFF;
 }
 body {
-    
     font-family: 'Outfit', sans-serif;
 }
 /* RESET CSS */
@@ -39,12 +38,14 @@ h1 {
     font-size: 3rem;
     line-height: 3rem;
     font-family: 'OutfitBold', sans-serif;
+    margin: .5em 0;
 }
 .wrapper {
     max-width: 1375px;
     margin: 0 auto;
 }
 .btn {
+    margin: .5em 0;
     border: none;
     outline: none;
     padding: .6em 1.2em;
@@ -61,6 +62,15 @@ h1 {
 .btn.btn-import-file {
     background-color: var(--primary-color);
     margin: 1em 0;
+}
+.violet {
+    background-color: var(--contrast); 
+}
+.orange {
+    background-color: var(--secondary-color);
+}
+.grey {
+    background-color: var(--background-color);
 }
 /* end components */
 
@@ -156,47 +166,60 @@ h1 {
 .dashboard {
     background-color: var(--white);
     padding: 2em;
+    width: 750px;
+}
+.container-filters {
+    display: flex;
+    justify-content: space-between;
+}
+.wrapper-dates-field {
+    display: flex;
+    justify-content: space-between;
 }
 .container-box {
     display: flex;
     padding: 2em 0;
-    justify-content: space-around;
+    justify-content: space-between;
+    color: var(--white);
 }
-.violet {
-    background-color: var(--contrast); 
-}
-.orange {
-    background-color: var(--secondary-color);
-}
-.grey {
-    background-color: var(--background-color);
-}
-/* .outside-box + .outside-box {
-    margin: 0 .1em;
-} */
 .box {
-    width: 200px;
-    height: 200px;
+    padding: 1em 2em;
+    display: flex;
+    flex-direction: column;
+    border-radius: .2em;
 }
-.turnover {
+.container-box .box h2,
+.turnover-blue h2 {
+    font-size: 3rem;
+}
+.container-box .outside-box span,
+.turnover span {
+    margin-bottom: .3em;
+    display: block;
+    color: var(--primary-color);
+    font-family: 'OutfitBold', sans-serif;
+    font-size: 1.125rem;
+}
+.turnover-blue {
     width: 100%;
+    padding: 2em;
+    border-radius: .2em;
     background-color: var(--primary-color);
     color: var(--white);
-    height: 100px;
-    margin: 2em 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
-
 /* media queries */
-
-@media (max-width: 1120px) {
+@media (max-width: 1200px) {
     .main-app {
         flex-direction: column;
     }
+    .dashboard {
+        width: 100%;
+    }
 }
-
-
-
 @media (min-width: 500px) {
     h1 {
         font-size: 4rem;
