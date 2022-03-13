@@ -27,6 +27,7 @@ var jwtCheck = jwt({
 app.use(jwtCheck);
 
 app.use("/", require("./routes/upload"));
+app.use("/", require("./routes/filters"));
 
 app.get("/getAll", async (req, res) => {
   const q = await queryAll();

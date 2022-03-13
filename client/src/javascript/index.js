@@ -205,3 +205,122 @@ function writeData(chunkNumber, token) {
       console.log(error);
     });
 }
+
+const filterOrders = document.getElementById("filterOrders");
+const dateFrom = document.getElementById("dateFrom");
+const dateTo = document.getElementById("dateTo");
+const error = document.getElementById("error");
+
+const validateDate = (from, to) => {
+  let validate = "";
+
+  if (from === "" || to === "") {
+    validate = "ricontrolla i campi di ricerca";
+  } else if (from > to) {
+    validate = "la prima data non può essere superiore alla seconda";
+  }
+
+  return validate;
+};
+
+const searchBtn = document.getElementById("searchBtn");
+
+searchBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const from = dateFrom.value;
+  const to = dateTo.value;
+  const message = validateDate(from, to);
+
+  if (message === "") {
+    await getOrders(from, to);
+    await getUsers(from, to);
+    await getTotalOrders(from, to);
+  } else {
+    error.innerHTML = message;
+  }
+});
+
+filterOrders.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const from = dateFrom.value;
+  const to = dateTo.value;
+  const message = validateDate(from, to);
+
+  if (message === "") {
+    await getOrders(from, to);
+  } else {
+    error.innerHTML = message;
+  }
+
+});
+
+async function getOrders(dateMin, dateMax) {
+  const token = await auth0.getTokenSilently();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  axios
+    .get(`http://localhost:3000/orders/${dateMin}/${dateMax}`, config)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+const filterUsers = document.getElementById("filterUsers");
+filterUsers.addEventListener("click", async (e) => {
+  e.preventDefault();
+  await getUsers("2022-03-12", "2022-03-13");
+});
+
+async function getUsers(dateMin, dateMax) {
+  const token = await auth0.getTokenSilently();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  axios
+    .get(`http://localhost:3000/users/${dateMin}/${dateMax}`, config)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+const filterTotalOrders = document.getElementById("filterTotalOrders");
+filterTotalOrders.addEventListener("click", async (e) => {
+  e.preventDefault();
+  await getTotalOrders("2022-03-12", "2022-03-13");
+});
+
+async function getTotalOrders(dateMin, dateMax) {
+  const token = await auth0.getTokenSilently();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  axios
+    .get(`http://localhost:3000/total-orders/${dateMin}/${dateMax}`, config)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
