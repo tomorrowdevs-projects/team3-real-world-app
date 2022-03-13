@@ -65,7 +65,7 @@ async function queryOrders(dateMin, dateMax, productId=undefined, name=undefined
       },
     },
     _sum:{
-      quantity:true,
+      // quantity:true,
       price: true,
     },
   })
@@ -78,7 +78,7 @@ async function queryOrders(dateMin, dateMax, productId=undefined, name=undefined
 
   const turnover = getTurnover.map((obj) => {
     return {
-      total: obj._sum.quantity * obj._sum.price,
+      total: obj._sum.price,
       id: obj.productId,
       name: getOrders.find(o => o.id == obj.productId).name,
       ordersCount: getOrders.find(o => o.id == obj.productId)._count.Order
@@ -89,8 +89,9 @@ async function queryOrders(dateMin, dateMax, productId=undefined, name=undefined
       total: acc.total + obj.total,
       ordersCount: acc.ordersCount + obj.ordersCount
     }
-  }, 0)
+  }, {total: 0, ordersCount: 0})
   
+  console.log(turnover);
   return turnover
 };
 
@@ -160,6 +161,6 @@ module.exports = {
   }
 
 //dateResolver("2022-03-13");
-//queryOrders("2022-03-08", "2022-03-10", 13435)//, 'Incredible Granite Chair')  
+//queryOrders("2021-03-09", "2022-03-10")//, 13435, 'Incredible Granite Chair')  
 //queryUsers("2022-03-08", "2022-03-13")
 //queryTotalOrders("2022-03-08", "2022-03-13")
