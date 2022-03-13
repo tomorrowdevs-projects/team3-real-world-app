@@ -5,6 +5,9 @@ let auth0 = null;
 
 const loginButton = document.getElementById("btn-login");
 const logoutButton = document.getElementById("btn-logout");
+const button = document.querySelector(".btn");
+const heading = document.querySelector(".heading");
+const mainApp = document.querySelector(".main-app");
 
 loginButton.addEventListener("click", async () => {
   await login();
@@ -64,13 +67,21 @@ const updateUI = async () => {
   if (isAuthenticated) {
     // document.getElementById("gated-content").classList.remove("hidden");
     document.getElementById("upload-content").classList.remove("hidden");
-
     // document.getElementById("ipt-access-token").innerHTML = await auth0.getTokenSilently();
-
+    document.getElementById("btn-container-login").classList.add("hidden");
+    document.getElementById("btn-container-logout").classList.remove("hidden");
     // document.getElementById("ipt-user-profile").textContent = JSON.stringify(await auth0.getUser());
+
+    // hide button
+    button.classList.add("hidden");
+    heading.classList.add("hidden");
+    mainApp.classList.remove("hidden");
   } else {
     // document.getElementById("gated-content").classList.add("hidden");
     document.getElementById("upload-content").classList.add("hidden");
+
+    document.getElementById("btn-container-login").classList.remove("hidden");
+    document.getElementById("btn-container-logout").classList.add("hidden");
   }
 };
 
@@ -135,7 +146,9 @@ async function uploadFile(start) {
     //Listen for the onuploadprogress event
     onUploadProgress: function (progressEvent) {
       if (file.size < chunkSize + 1) {
-        var percent = Math.round((progressEvent.loaded / progressEvent.total) * 100);
+        var percent = Math.round(
+          (progressEvent.loaded / progressEvent.total) * 100
+        );
       } else {
         var percent = Math.round((uploadedChunck / file.size) * 100);
       }
@@ -145,7 +158,11 @@ async function uploadFile(start) {
   };
 
   axios
-    .post(`http://localhost:3000/upload/${file.name}/${chunkNumber}`, formData, config)
+    .post(
+      `http://localhost:3000/upload/${file.name}/${chunkNumber}`,
+      formData,
+      config
+    )
     .then((response) => {
       if (nextChunk < file.size) {
         uploadFile(nextChunk);
@@ -183,6 +200,125 @@ function writeData(chunkNumber, token) {
     .then((response) => {
       console.log(response);
       loading.innerHTML = "Ended";
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+const filterOrders = document.getElementById("filterOrders");
+const dateFrom = document.getElementById("dateFrom");
+const dateTo = document.getElementById("dateTo");
+const error = document.getElementById("error");
+
+const validateDate = (from, to) => {
+  let validate = "";
+
+  if (from === "" || to === "") {
+    validate = "ricontrolla i campi di ricerca";
+  } else if (from > to) {
+    validate = "la prima data non può essere superiore alla seconda";
+  }
+
+  return validate;
+};
+
+const searchBtn = document.getElementById("searchBtn");
+
+searchBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const from = dateFrom.value;
+  const to = dateTo.value;
+  const message = validateDate(from, to);
+
+  if (message === "") {
+    await getOrders(from, to);
+    await getUsers(from, to);
+    await getTotalOrders(from, to);
+  } else {
+    error.innerHTML = message;
+  }
+});
+
+filterOrders.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const from = dateFrom.value;
+  const to = dateTo.value;
+  const message = validateDate(from, to);
+
+  if (message === "") {
+    await getOrders(from, to);
+  } else {
+    error.innerHTML = message;
+  }
+
+});
+
+async function getOrders(dateMin, dateMax) {
+  const token = await auth0.getTokenSilently();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  axios
+    .get(`http://localhost:3000/orders/${dateMin}/${dateMax}`, config)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+const filterUsers = document.getElementById("filterUsers");
+filterUsers.addEventListener("click", async (e) => {
+  e.preventDefault();
+  await getUsers("2022-03-12", "2022-03-13");
+});
+
+async function getUsers(dateMin, dateMax) {
+  const token = await auth0.getTokenSilently();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  axios
+    .get(`http://localhost:3000/users/${dateMin}/${dateMax}`, config)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+const filterTotalOrders = document.getElementById("filterTotalOrders");
+filterTotalOrders.addEventListener("click", async (e) => {
+  e.preventDefault();
+  await getTotalOrders("2022-03-12", "2022-03-13");
+});
+
+async function getTotalOrders(dateMin, dateMax) {
+  const token = await auth0.getTokenSilently();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  axios
+    .get(`http://localhost:3000/total-orders/${dateMin}/${dateMax}`, config)
+    .then((response) => {
+      console.log(response.data);
     })
     .catch((error) => {
       console.log(error);
