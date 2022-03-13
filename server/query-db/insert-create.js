@@ -141,5 +141,3 @@ async function insertData(record) {
 module.exports = {
   readCSVwriteData,
 };
-
-readCSVwriteData(smallFile)

@@ -84,6 +84,12 @@ async function queryOrders(dateMin, dateMax, productId=undefined, name=undefined
       ordersCount: getOrders.find(o => o.id == obj.productId)._count.Order
     }
   })
+  .reduce((acc, obj) => {
+    return {
+      total: acc.total + obj.total,
+      ordersCount: acc.ordersCount + obj.ordersCount
+    }
+  })
   
   return turnover
 };
