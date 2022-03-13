@@ -211,6 +211,40 @@ h1 {
     align-items: center;
 }
 
+/* TEST
+    *
+    *
+    *
+*****/
+.custom-file-input {
+color: transparent;
+}
+.custom-file-input::-webkit-file-upload-button {
+visibility: hidden;
+}
+.custom-file-input::before {
+    content: 'Import your files';
+    background-color: var(--primary-color);
+    color: var(--white);
+    display: inline-block;
+    outline: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+    margin: .5em 0; 
+    border: none;
+    outline: none;
+    padding: .6em 1.2em;
+    color: #fff;
+    border-radius: 3em;
+    font-size: 1.25rem;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--primary-color);
+    margin: 1em 0; 
+}
+
+
+
 /* media queries */
 @media (max-width: 1200px) {
     .main-app {

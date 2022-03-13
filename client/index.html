@@ -47,7 +47,7 @@
             <!-- parte sinistra -->
             <div class="upload-panel">
               <img src="./img/upload-icon.svg" alt="upload icon">
-              <!-- <button class="btn btn-import-file" onclick="document.getElementById('input').click()">Import your file</button> -->
+              <button class="btn btn-import-file" onclick="document.getElementById('input').click()">Import your file</button>
 
               <div class="upload-panel-step">
 
@@ -147,7 +147,7 @@
 
             <form action="" class="flex flex-col">
               <!-- <button class="btn btn-import-file" onclick="document.getElementById('input').click()">Import your file</button> -->
-              <input type="file" id="input" accept=".csv" class="input" style="display:none;" />
+              <input type="file" id="input" accept=".csv" class="input custom-file-input"/>
               <div class="flex align-center">
                 <progress value="0" max="100" id="progress" class="progress"></progress>
                 <button id="cancelUploadBtn">X</button>
@@ -157,7 +157,7 @@
             </form>
     
           <div id="loading" style="display: none;">Loading ...</div>
-          </main>
+        </main>
       </div>
 
       
