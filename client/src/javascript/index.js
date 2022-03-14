@@ -8,6 +8,7 @@ const logoutButton = document.getElementById("btn-logout");
 const button = document.querySelector(".btn");
 const heading = document.querySelector(".heading");
 const mainApp = document.querySelector(".main-app");
+const uploadContent = document.getElementById("upload-content");
 
 loginButton.addEventListener("click", async () => {
   await login();
@@ -57,7 +58,6 @@ window.onload = async () => {
 };
 
 const updateUI = async () => {
-  console.log("updateUI");
   const isAuthenticated = await auth0.isAuthenticated();
   console.log(isAuthenticated);
 
@@ -65,23 +65,21 @@ const updateUI = async () => {
   document.getElementById("btn-login").disabled = isAuthenticated;
 
   if (isAuthenticated) {
-    // document.getElementById("gated-content").classList.remove("hidden");
-    document.getElementById("upload-content").classList.remove("hidden");
-    // document.getElementById("ipt-access-token").innerHTML = await auth0.getTokenSilently();
     document.getElementById("btn-container-login").classList.add("hidden");
     document.getElementById("btn-container-logout").classList.remove("hidden");
-    // document.getElementById("ipt-user-profile").textContent = JSON.stringify(await auth0.getUser());
 
     // hide button
     button.classList.add("hidden");
     heading.classList.add("hidden");
     mainApp.classList.remove("hidden");
   } else {
-    // document.getElementById("gated-content").classList.add("hidden");
-    document.getElementById("upload-content").classList.add("hidden");
 
     document.getElementById("btn-container-login").classList.remove("hidden");
     document.getElementById("btn-container-logout").classList.add("hidden");
+
+    button.classList.remove("hidden");
+    heading.classList.remove("hidden");
+    mainApp.classList.add("hidden");
   }
 };
 
@@ -111,8 +109,8 @@ var chunks = 0;
 var file = "";
 
 input.addEventListener("change", async (e) => {
+  uploadContent.classList.remove("hidden");
   file = e.target.files[0];
-  const filename = file.name;
 
   chunks = Math.ceil(file.size / chunkSize);
   fileInfo.innerHTML = "There will be " + chunks + " chunks uploaded";
@@ -121,7 +119,9 @@ input.addEventListener("change", async (e) => {
 });
 
 const CancelToken = axios.CancelToken;
-const source = CancelToken.source();
+// const source = CancelToken.source();
+
+let source;
 
 var chunkNumber = 0;
 
@@ -137,6 +137,9 @@ async function uploadFile(start) {
   formData.append("nextSlice", nextChunk);
 
   const token = await auth0.getTokenSilently();
+
+  console.log("uploadFile");
+  source = CancelToken.source();
 
   const config = {
     headers: {
@@ -156,7 +159,7 @@ async function uploadFile(start) {
     },
     cancelToken: source.token,
   };
-
+  
   axios
     .post(
       `http://localhost:3000/upload/${file.name}/${chunkNumber}`,
@@ -184,10 +187,12 @@ cancelUploadBtn.addEventListener("click", (e) => {
   source.cancel("Upload cancelled");
   input.value = "";
   document.querySelector("#progress").value = 0;
+  document.querySelector("#progress").max = 100;
+  fileInfo.innerHTML = "";
 });
 
 function writeData(chunkNumber, token) {
-  loading.style.display = "block";
+  // loading.style.display = "block";
 
   const config = {
     headers: {
@@ -199,7 +204,7 @@ function writeData(chunkNumber, token) {
     .get(`http://localhost:3000/data/${file.name}/${chunkNumber}`, config)
     .then((response) => {
       console.log(response);
-      loading.innerHTML = "Ended";
+      // loading.innerHTML = "Ended";
     })
     .catch((error) => {
       console.log(error);
@@ -215,9 +220,9 @@ const validateDate = (from, to) => {
   let validate = "";
 
   if (from === "" || to === "") {
-    validate = "ricontrolla i campi di ricerca";
+    validate = "Check input fields";
   } else if (from > to) {
-    validate = "la prima data non può essere superiore alla seconda";
+    validate = "The first date has to be grater than the second one";
   }
 
   return validate;
@@ -269,17 +274,19 @@ async function getOrders(dateMin, dateMax) {
     .get(`http://localhost:3000/orders/${dateMin}/${dateMax}`, config)
     .then((response) => {
       console.log(response.data);
+      document.getElementById("numberOrders").innerHTML = response.data.ordersCount;
+      document.getElementById("turnover").innerHTML = response.data.total + " $";
     })
     .catch((error) => {
       console.log(error);
     });
 }
 
-const filterUsers = document.getElementById("filterUsers");
-filterUsers.addEventListener("click", async (e) => {
-  e.preventDefault();
-  await getUsers("2022-03-12", "2022-03-13");
-});
+// const filterUsers = document.getElementById("filterUsers");
+// filterUsers.addEventListener("click", async (e) => {
+//   e.preventDefault();
+//   await getUsers("2022-03-12", "2022-03-13");
+// });
 
 async function getUsers(dateMin, dateMax) {
   const token = await auth0.getTokenSilently();
@@ -294,17 +301,18 @@ async function getUsers(dateMin, dateMax) {
     .get(`http://localhost:3000/users/${dateMin}/${dateMax}`, config)
     .then((response) => {
       console.log(response.data);
+      document.getElementById("numberUsers").innerHTML = response.data;
     })
     .catch((error) => {
       console.log(error);
     });
 }
 
-const filterTotalOrders = document.getElementById("filterTotalOrders");
-filterTotalOrders.addEventListener("click", async (e) => {
-  e.preventDefault();
-  await getTotalOrders("2022-03-12", "2022-03-13");
-});
+// const filterTotalOrders = document.getElementById("filterTotalOrders");
+// filterTotalOrders.addEventListener("click", async (e) => {
+//   e.preventDefault();
+//   await getTotalOrders("2022-03-12", "2022-03-13");
+// });
 
 async function getTotalOrders(dateMin, dateMax) {
   const token = await auth0.getTokenSilently();
@@ -319,6 +327,7 @@ async function getTotalOrders(dateMin, dateMax) {
     .get(`http://localhost:3000/total-orders/${dateMin}/${dateMax}`, config)
     .then((response) => {
       console.log(response.data);
+      document.getElementById("totalOrders").innerHTML = response.data + " $";
     })
     .catch((error) => {
       console.log(error);

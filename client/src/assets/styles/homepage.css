@@ -1,243 +1,274 @@
 /* fonts includes */
 @font-face {
-    font-family: "Outfit";
-    src: url("/src/assets/fonts/Outfit/Outfit-Regular.ttf");
+  font-family: "Outfit";
+  src: url("/src/assets/fonts/Outfit/Outfit-Regular.ttf");
 }
 @font-face {
-    font-family: "OutfitBold";
-    src: url("/src/assets/fonts/Outfit/Outfit-Bold.ttf");
+  font-family: "OutfitBold";
+  src: url("/src/assets/fonts/Outfit/Outfit-Bold.ttf");
 }
 @font-face {
-    font-family: "OutfitExtraBold";
-    src: url("/src/assets/fonts/Outfit/Outfit-ExtraBold.ttf");
+  font-family: "OutfitExtraBold";
+  src: url("/src/assets/fonts/Outfit/Outfit-ExtraBold.ttf");
 }
 /* Reset CSS */
-*, *::before, *::after {
-    box-sizing: border-box;
-    margin: 0;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
 }
 /* CSS Variables */
 :root {
-    --primary-color: #343E95;
-    --secondary-color: #FFA63E;
-    --background-color: #E5E5E5;
-    --white: #fff;
-    --contrast: #7D8AFF;
+  --primary-color: #343e95;
+  --secondary-color: #ffa63e;
+  --warning-color: #ff0000;
+  --background-color: #e5e5e5;
+  --white: #fff;
+  --contrast: #7d8aff;
 }
 body {
-    font-family: 'Outfit', sans-serif;
+  font-family: "Outfit", sans-serif;
 }
 /* RESET CSS */
 img {
-    display: block;
-    width: 100%;
+  display: block;
+  width: 100%;
 }
 /* components */
 h1 {
-    color: var(--primary-color);
-    font-size: 3rem;
-    line-height: 3rem;
-    font-family: 'OutfitBold', sans-serif;
-    margin: .5em 0;
+  color: var(--primary-color);
+  font-size: 3rem;
+  line-height: 3rem;
+  font-family: "OutfitBold", sans-serif;
+  margin: 0.5em 0;
 }
 .wrapper {
-    max-width: 1375px;
-    margin: 0 auto;
+  max-width: 1375px;
+  margin: 0 auto;
 }
 .btn {
-    margin: .5em 0;
-    border: none;
-    outline: none;
-    padding: .6em 1.2em;
-    background-color: var(--secondary-color);
-    color: #fff;
-    border-radius: 3em;
-    font-size: 1.25rem;
-    font-weight: 600;
-    font-family: 'Outfit', sans-serif;
+  margin: 0.5em 0;
+  border: none;
+  outline: none;
+  padding: 0.6em 1.2em;
+  background-color: var(--secondary-color);
+  color: #fff;
+  border-radius: 3em;
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-family: "Outfit", sans-serif;
 }
-.btn:hover, .btn:focus {
-    background-color: var(--contrast);
+.btn:hover,
+.btn:focus {
+  background-color: var(--contrast);
 }
 .btn.btn-import-file {
-    background-color: var(--primary-color);
-    margin: 1em 0;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  margin: 1em 0;
 }
 .violet {
-    background-color: var(--contrast); 
+  background-color: var(--contrast);
 }
 .orange {
-    background-color: var(--secondary-color);
+  background-color: var(--secondary-color);
 }
 .grey {
-    background-color: var(--background-color);
+  background-color: var(--background-color);
 }
 /* end components */
 
 /* app styles */
 .container-app {
-    background-color: var(--background-color);
-    background-image: url("../img/mobile.svg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 100vh;
-    padding: 1em;
+  background-color: var(--background-color);
+  background-image: url("../img/mobile.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+  padding: 1em;
 }
 /* navigation */
 .navigation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .login {
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-    width: 15%;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  width: 15%;
 }
 .login img {
-    height: 15px;
-    width: 25px;
+  height: 15px;
+  width: 25px;
 }
 .login a {
-    margin-left: .3em;
-    text-decoration: none;
-    color: var(--primary-color);
-    font-weight: 600;
-    font-size: 1.3rem;
+  margin-left: 0.3em;
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 1.3rem;
 }
 .logo img {
-    height: 50px;
+  height: 50px;
 }
 /* end navigation styles */
 
 /* main content app */
 .content {
-    padding: 3em 0;
+  padding: 3em 0;
 }
 /* upload icon dashboard */
 .main-app {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 .upload-panel {
-    background-color: var(--white);
-    padding: 2em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  background-color: var(--white);
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.upload-panel, .dashboard {
-    border-radius: .2em;
+.upload-panel,
+.dashboard {
+  border-radius: 0.2em;
+}
+.dashboard-title {
+  font-size: 2.375rem;
+  font-family: "OutfitBold", sans-serif;
+  color: var(--primary-color);
+  margin-bottom: 0.7rem;
 }
 .upload-panel img {
-    width: 110px;
-    margin: .5em 0;
+  width: 110px;
+  margin: 0.5em 0;
 }
 .upload-panel-step {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .upload-panel-step .single-step {
-    display: flex;
-    margin: .5em 0;
-    align-items: center;
+  display: flex;
+  margin: 0.5em 0;
+  align-items: center;
 }
 .upload-panel-step .single-step .number {
-    width: 50px;
-    height: 50px;
-    background-color: #FFA63E;
-    border-radius: 50%;
-    font-size: 36px;
-    font-family: 'OutfitExtraBold', sans-serif;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: .3em;
+  width: 50px;
+  height: 50px;
+  background-color: #ffa63e;
+  border-radius: 50%;
+  font-size: 36px;
+  font-family: "OutfitExtraBold", sans-serif;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.3em;
 }
 .upload-panel-step .single-step .text {
-    font-size: 1.25rem;
-    color: var(--primary-color);
-    max-width: 290px;
+  font-size: 1.25rem;
+  color: var(--primary-color);
+  max-width: 290px;
 }
 .dashboard {
-    background-color: var(--white);
-    padding: 2em;
-    width: 750px;
+  background-color: var(--white);
+  padding: 2em;
+  width: 750px;
 }
 .container-filters {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 .wrapper-dates-field {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 .container-box {
-    display: flex;
-    padding: 2em 0;
-    justify-content: space-between;
-    color: var(--white);
+  display: flex;
+  padding: 2em 0;
+  justify-content: space-between;
+  color: var(--white);
 }
 .box {
-    padding: 1em 2em;
-    display: flex;
-    flex-direction: column;
-    border-radius: .2em;
+  padding: 1em 1em;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.2em;
 }
 .container-box .box h2,
 .turnover-blue h2 {
-    font-size: 3rem;
+  font-size: 3rem;
 }
 .container-box .outside-box span,
 .turnover span {
-    margin-bottom: .3em;
-    display: block;
-    color: var(--primary-color);
-    font-family: 'OutfitBold', sans-serif;
-    font-size: 1.125rem;
+  margin-bottom: 0.3em;
+  display: block;
+  color: var(--primary-color);
+  font-family: "OutfitBold", sans-serif;
+  font-size: 1.125rem;
 }
 .turnover-blue {
-    width: 100%;
-    padding: 2em;
-    border-radius: .2em;
-    background-color: var(--primary-color);
-    color: var(--white);
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  width: 100%;
+  padding: 2em;
+  border-radius: 0.2em;
+  background-color: var(--primary-color);
+  color: var(--white);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.progress-bar {
+  margin-top: 0.7rem;
+  background-color: var(--white);
+  width: 100%;
+}
+
+.inputDate {
+  margin-right: 0.5rem;
+}
+
+.error {
+  color: var(--warning-color);
+}
+
+.label {
+  color: var(--primary-color);
+  font-size: 1.25rem;
 }
 
 /* media queries */
 @media (max-width: 1200px) {
-    .main-app {
-        flex-direction: column;
-    }
-    .dashboard {
-        width: 100%;
-    }
+  .main-app {
+    flex-direction: column;
+  }
+  .dashboard {
+    width: 100%;
+  }
 }
 @media (min-width: 500px) {
-    h1 {
-        font-size: 4rem;
-        line-height: 4rem;
-        max-width: 650px;
-        margin: 3.125 0;
-    }
-    .btn {
-        font-size: 1.25rem;
-    }
+  h1 {
+    font-size: 4rem;
+    line-height: 4rem;
+    max-width: 650px;
+    margin: 3.125 0;
+  }
+  .btn {
+    font-size: 1.25rem;
+  }
 }
 @media (min-width: 600px) {
-    .container-app {
-        background-image: url("../img/bg_desktop.svg");
-        background-repeat: no-repeat;
-        background-position: 150px;
-    }
-    .login a {
-        margin-left: 0;
-    }
-} 
+  .container-app {
+    background-image: url("../img/bg_desktop.svg");
+    background-repeat: no-repeat;
+    background-position: 150px;
+  }
+  .login a {
+    margin-left: 0;
+  }
+}
