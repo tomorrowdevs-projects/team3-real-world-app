@@ -1,0 +1,45 @@
+version: '3.3'
+
+services:
+
+  client:
+    image: francescodb86/client-td:1.0.0
+    ports:
+      - "8080:8080"
+    depends_on:
+      - server
+    networks:
+      - back
+    hostname: node2
+    
+  server:
+    image: francescodb86/server-td:1.0.0
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+    hostname: node1
+    networks:
+      - back
+    restart:
+      unless-stopped
+    command: sh -c './wait-for database:5432 && npx prisma generate && npx prisma migrate deploy && node index.js'
+
+  database:
+    image: postgres:14.2
+
+    environment:
+      - POSTGRES_PASSWORD=amoidb
+      - POSTGRES_USER=postgres
+      #- POSTGRES_DB=postgres
+      #- POSTGRES_HOST_AUTH_METHOD=trust
+    hostname: node0
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    networks:
+      - back
+      
+networks:
+  back:
