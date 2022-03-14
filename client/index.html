@@ -5,7 +5,7 @@
     <title>SPA SDK Sample</title>
     <style>
       .hidden {
-        display: none!important;
+        display: none !important;
       }
 
       label {
@@ -20,21 +20,19 @@
       <div class="wrapper">
         <header>
           <div class="navigation">
-
             <div class="logo">
               <img src="./img/logo.svg" alt="logo" />
             </div>
 
             <div class="login" id="btn-container-login">
               <img src="./img/login_icon.svg" alt="login icon" />
-              <a href="#" id="btn-login" >Login</a>
+              <a href="#" id="btn-login">Login</a>
             </div>
 
             <div class="login hidden" id="btn-container-logout">
               <img src="./img/logout_icon.svg" alt="logout icon" />
-              <a href="#" id="btn-logout" >Logout</a>
+              <a href="#" id="btn-logout">Logout</a>
             </div>
-
           </div>
         </header>
 
@@ -43,19 +41,20 @@
           <button class="btn">Get Started Now</button>
 
           <div class="main-app hidden">
-
             <!-- parte sinistra -->
             <div class="upload-panel">
-              <img src="./img/upload-icon.svg" alt="upload icon">
-              <!-- <button class="btn btn-import-file" onclick="document.getElementById('input').click()">Import your file</button> -->
+              <img src="./img/upload-icon.svg" alt="upload icon" />
+
+              <label for="input" class="btn btn-import-file">
+                Import your file
+                <input type="file" id="input" style="display: none" accept=".csv" />
+              </label>
 
               <div class="upload-panel-step">
-
                 <div class="single-step">
                   <div class="number">1</div>
                   <div class="text">
-                    <p>Choose your .csv file 
-                      with the order list</p>
+                    <p>Choose your .csv file with the order list</p>
                   </div>
                 </div>
 
@@ -69,8 +68,7 @@
                 <div class="single-step">
                   <div class="number">3</div>
                   <div class="text">
-                    <p>Check your email. You will be 
-                      notified when your data is ready!</p>
+                    <p>Check your email. You will be notified when your data is ready!</p>
                   </div>
                 </div>
 
@@ -80,53 +78,67 @@
                     <p>View your order information</p>
                   </div>
                 </div>
-                
               </div>
+
+              <div class="hidden progress-bar" id="upload-content">
+                <div class="flex align-center">
+                  <progress value="0" max="100" id="progress" class="progress"></progress>
+                  <button id="cancelUploadBtn">X</button>
+                </div>
+                <div id="file-info" class="label"></div>
+              </div>
+              <!-- <div id="loading" style="display: none">Loading ...</div> -->
             </div>
 
             <!-- parte destra -->
             <div class="dashboard">
+              <div class="dashboard-title">Dashboard</div>
               <!-- head -->
+              <span class="label">Select Date</span>
               <div class="container-filters">
                 <div class="wrapper-dates-field">
-                  <div>
-                    <input type="date" name="" id="">
+                  <div class="inputDate">
+                    <label class="label" for="dateFrom">From:</label>
+                    <input id="dateFrom" type="date"/>
                   </div>
-  
-                  <div>
-                    <input type="date" name="" id="">
+
+                  <div class="inputDate">
+                    <label class="label" for="dateTo">To:</label>
+                    <input id="dateTo" type="date"/>
                   </div>
+
+                  <button id="searchBtn" class="btn btn-import-file">Search</button>
                 </div>
 
-                <div>
-                  <span>Select Range</span>
-                    <select name="" id="">
+                <!-- <div>
+                  <span>Select Product</span>
+                  <select name="" id="">
                     <option value="test">test</option>
                     <option value="test">test 2</option>
                     <option value="test">test 3</option>
                   </select>
-                </div>
-
+                </div> -->
               </div>
+              <div class="error" id="error"></div>
 
               <!-- main -->
               <div class="container-box">
                 <div class="outside-box">
                   <span>Number of Orders</span>
                   <div class="box violet">
-                    <h2>30.523</h2>
+                    <h2 id="numberOrders">0</h2>
                   </div>
                 </div>
                 <div class="outside-box">
                   <span>Number of Customers</span>
                   <div class="box orange">
-                    <h2>18.523</h2>
+                    <h2 id="numberUsers">0</h2>
                   </div>
                 </div>
                 <div class="outside-box">
                   <span>Average Order Value</span>
                   <div class="box grey">
-                    <h2>13.423 $</h2>
+                    <h2 id="totalOrders">0</h2>
                   </div>
                 </div>
               </div>
@@ -135,37 +147,19 @@
               <div class="turnover">
                 <span>Turnover</span>
                 <div class="turnover-blue">
-                  <h2>10.523.283 $</h2>
+                  <h2 id="turnover">0</h2>
                 </div>
               </div>
-
             </div>
-
           </div>
-
-          <div class="hidden" id="upload-content">
-
-            <form action="" class="flex flex-col">
-              <!-- <button class="btn btn-import-file" onclick="document.getElementById('input').click()">Import your file</button> -->
-              <input type="file" id="input" accept=".csv" class="input" style="display:none;" />
-              <div class="flex align-center">
-                <progress value="0" max="100" id="progress" class="progress"></progress>
-                <button id="cancelUploadBtn">X</button>
-              </div>
-              <div id="file-info"></div>
-              <div id="chunk-info"></div>
-            </form>
-    
-          <div id="loading" style="display: none;">Loading ...</div>
-          </main>
-      </div>
+        </main>
 
         <!-- <label>
           User profile:
           <pre id="ipt-user-profile"></pre>
         </label> -->
 
-        <div>
+        <!-- <div>
           <div>
             <label for="orders">Da:</label>
             <input id="dateFrom" type="date" placeholder="yyyy-mm-dd" value="" />
@@ -181,7 +175,7 @@
 
         <div id="filterOrders">Get orders</div>
         <div id="filterUsers">Get users</div>
-        <div id="filterTotalOrders">Get total orders</div>
+        <div id="filterTotalOrders">Get total orders</div> -->
       </div>
     </div>
   </body>
