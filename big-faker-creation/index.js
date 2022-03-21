@@ -17,17 +17,17 @@ const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
   });
-  
+
 readline.question("How many rows do you want to create? ", rowNumbers => {
   readline.question('Do you want to create the csv using streams (0) or in append sync mode (1)? ', createFile => {
     
-    console.log(`Ok row numbers ${rowNumbers}`);
+    console.log(`Row numbers ${rowNumbers}`);
 
     if (createFile == 0) {
-      console.log(`Ok Streams!`);
+      console.log(`Stream method started successfully!`);
       writeFakeDataStreams(rowNumbers);
     } else if (createFile == 1) {
-      console.log(`Ok Sync!`);
+      console.log(`Sync append method started successfully!`);
       appendFake(rowNumbers);
     }
 
