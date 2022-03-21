@@ -86,7 +86,6 @@ const updateUI = async () => {
 const login = async () => {
   await auth0.loginWithRedirect({
     redirect_uri: window.location.origin,
-    // redirect_uri: "http://localhost:8080/upload.html",
   });
 };
 
@@ -101,7 +100,6 @@ import "../assets/styles/index.css";
 const axios = require("axios");
 const input = document.querySelector("#input");
 const fileInfo = document.querySelector("#file-info");
-const loading = document.querySelector("#loading");
 
 //break into 10 MB chunks
 const chunkSize = 1024 * 1024 * 10;
@@ -119,8 +117,6 @@ input.addEventListener("change", async (e) => {
 });
 
 const CancelToken = axios.CancelToken;
-// const source = CancelToken.source();
-
 let source;
 
 var chunkNumber = 0;
@@ -211,7 +207,6 @@ function writeData(chunkNumber, token) {
     });
 }
 
-const filterOrders = document.getElementById("filterOrders");
 const dateFrom = document.getElementById("dateFrom");
 const dateTo = document.getElementById("dateTo");
 const error = document.getElementById("error");
@@ -246,21 +241,6 @@ searchBtn.addEventListener("click", async (e) => {
   }
 });
 
-filterOrders.addEventListener("click", async (e) => {
-  e.preventDefault();
-
-  const from = dateFrom.value;
-  const to = dateTo.value;
-  const message = validateDate(from, to);
-
-  if (message === "") {
-    await getOrders(from, to);
-  } else {
-    error.innerHTML = message;
-  }
-
-});
-
 async function getOrders(dateMin, dateMax) {
   const token = await auth0.getTokenSilently();
 
@@ -273,7 +253,6 @@ async function getOrders(dateMin, dateMax) {
   axios
     .get(`http://localhost:3000/orders/${dateMin}/${dateMax}`, config)
     .then((response) => {
-      console.log(response.data);
       document.getElementById("numberOrders").innerHTML = response.data.ordersCount;
       document.getElementById("turnover").innerHTML = response.data.total + " $";
     })
@@ -281,12 +260,6 @@ async function getOrders(dateMin, dateMax) {
       console.log(error);
     });
 }
-
-// const filterUsers = document.getElementById("filterUsers");
-// filterUsers.addEventListener("click", async (e) => {
-//   e.preventDefault();
-//   await getUsers("2022-03-12", "2022-03-13");
-// });
 
 async function getUsers(dateMin, dateMax) {
   const token = await auth0.getTokenSilently();
@@ -300,19 +273,12 @@ async function getUsers(dateMin, dateMax) {
   axios
     .get(`http://localhost:3000/users/${dateMin}/${dateMax}`, config)
     .then((response) => {
-      console.log(response.data);
       document.getElementById("numberUsers").innerHTML = response.data;
     })
     .catch((error) => {
       console.log(error);
     });
 }
-
-// const filterTotalOrders = document.getElementById("filterTotalOrders");
-// filterTotalOrders.addEventListener("click", async (e) => {
-//   e.preventDefault();
-//   await getTotalOrders("2022-03-12", "2022-03-13");
-// });
 
 async function getTotalOrders(dateMin, dateMax) {
   const token = await auth0.getTokenSilently();
@@ -326,7 +292,6 @@ async function getTotalOrders(dateMin, dateMax) {
   axios
     .get(`http://localhost:3000/total-orders/${dateMin}/${dateMax}`, config)
     .then((response) => {
-      console.log(response.data);
       document.getElementById("totalOrders").innerHTML = response.data + " $";
     })
     .catch((error) => {
