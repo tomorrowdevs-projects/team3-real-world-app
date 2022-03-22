@@ -11,16 +11,15 @@ const port = 3000;
 app.use(express.json());
 app.use(cors());
 
-// Fix: Define values in env file
 var jwtCheck = jwt({
   secret: jwks.expressJwtSecret({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: "https://dev-b776ij9u.us.auth0.com/.well-known/jwks.json",
+    jwksUri: process.env.URI,
   }),
-  audience: "http://localhost:3000/api",
-  issuer: "https://dev-b776ij9u.us.auth0.com/",
+  audience: process.env.AUDIENCE,
+  issuer: process.env.ISSUER,
   algorithms: ["RS256"],
 });
 
