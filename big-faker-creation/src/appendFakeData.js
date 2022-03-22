@@ -13,19 +13,19 @@ function appendFake(rowNumbers) {
     }
     return;
   });
-  for (let i = 0; i < rowNumbers; i++) {
+  for (let i = 1; i <= rowNumbers; i++) {
     fs.appendFileSync(outputFile, getFakeOrder(), (err) => {
       if (err) {
         console.log(err);
       }
       return;
     });
-    if (i % 10 === 0) {
+    if (i % 100 === 0) {
       console.log(`Updated block ${i}, file ${file}`);
     }
   }
 
-  console.log(`Test Terminated`);
+  console.log(`File Completed`);
 }
 
 module.exports = {
