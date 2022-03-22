@@ -6,7 +6,6 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
   entry: {
     index: "./src/javascript/index.js",
-    // upload: "./src/javascript/upload.js",
   },
 
   output: {
@@ -58,14 +57,7 @@ module.exports = {
       template: "index.html",
       inject: "body",
       chunks: ["index"],
-      // chunks: ["index", "upload"],
     }),
-    // new HtmlWebpackPlugin({
-    //   filename: "upload.html",
-    //   template: "upload.html",
-    //   inject: "body",
-    //   chunks: ["index", "upload"],
-    // }),
     new MiniCssExtractPlugin({
       filename: "bundle.css",
     }),

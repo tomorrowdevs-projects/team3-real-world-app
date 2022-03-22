@@ -207,6 +207,8 @@ function writeData(chunkNumber, token) {
     });
 }
 
+// Filters
+
 const dateFrom = document.getElementById("dateFrom");
 const dateTo = document.getElementById("dateTo");
 const error = document.getElementById("error");

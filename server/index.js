@@ -1,4 +1,3 @@
-//const { queryAll } = require("./query-db/query");
 const express = require("express");
 const cors = require("cors");
 const jwt = require("express-jwt");
@@ -12,6 +11,7 @@ const port = 3000;
 app.use(express.json());
 app.use(cors());
 
+// Fix: Define values in env file
 var jwtCheck = jwt({
   secret: jwks.expressJwtSecret({
     cache: true,
@@ -28,11 +28,6 @@ app.use(jwtCheck);
 
 app.use("/", require("./routes/upload"));
 app.use("/", require("./routes/filters"));
-
-app.get("/getAll", async (req, res) => {
-  const q = await queryAll();
-  res.json(q);
-});
 
 app.listen(port, () => {
   console.log("Server ready");
