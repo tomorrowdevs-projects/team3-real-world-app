@@ -12,14 +12,17 @@ function writeFakeDataStreams(rowNumbers) {
   const myWriteStream = fs.createWriteStream(outputFile);
 
   myWriteStream
-  .on('open', () => console.log('Started to write faker file'))
-  .on('start', () => myWriteStream.write(fileHeader))
+  .on('open', () => {
+    console.log('Started to write faker file');
+    writeFake(true);
+  })
   .on('close', () => console.log('faker file created'))
-
-  writeFake();
   
-  function writeFake (callback) {
+  function writeFake (header=false) {
     let ok = true;
+    if (header === true) {
+      ok = myWriteStream.write(fileHeader);
+    }
     do {
       rowNumbers--;
       ok = myWriteStream.write(getFakeOrder());
