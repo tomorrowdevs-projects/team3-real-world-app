@@ -21,32 +21,7 @@ async function queryAll() {
 // - Sommatoria di numero di ordini e fatturato per Articolo, in un periodo temporale definibile dall’utente 
 async function queryOrders(dateMin, dateMax, productId=undefined, name=undefined) {
   const dateMaxResolved = await dateResolver(dateMax);
-  const getOrders = await prisma.product.findMany({
-    where: {
-      Order: {
-        some: {
-          orderDate: {
-            gte: new Date(dateMin),
-            lte: new Date(dateMaxResolved),
-          },
-        },
-      },
-      id: productId,
-      name: name
-    },
-    select: {
-      id: true,
-      name: true,
-      _count: {
-        select: {
-          Order: true
-        }
-      },
-    },
-  })
-  .catch((e) => {
-    throw e
-  })
+
   const getTurnover = await prisma.order.groupBy({
     by: ['productId'],
     where: {
@@ -58,6 +33,9 @@ async function queryOrders(dateMin, dateMax, productId=undefined, name=undefined
       product: {
         name: name
       }
+    },
+    _count: {
+      id: true
     },
     orderBy: {
       _sum:{
@@ -80,8 +58,7 @@ async function queryOrders(dateMin, dateMax, productId=undefined, name=undefined
     return {
       total: obj._sum.price,
       id: obj.productId,
-      name: getOrders.find(o => o.id == obj.productId).name,
-      ordersCount: getOrders.find(o => o.id == obj.productId)._count.Order
+      ordersCount: obj._count.id
     }
   })
   .reduce((acc, obj) => {
@@ -161,6 +138,6 @@ module.exports = {
   }
 
 //dateResolver("2022-03-13");
-//queryOrders("2021-03-09", "2022-03-10")//, 13435, 'Incredible Granite Chair')  
+queryOrders("2021-04-02", "2022-04-02")//, 13435, 'Incredible Granite Chair')  
 //queryUsers("2022-03-08", "2022-03-13")
 //queryTotalOrders("2022-03-08", "2022-03-13")
